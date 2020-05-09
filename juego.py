@@ -1,10 +1,11 @@
 import pygame
-import constantes
 import ambiente
 import random
-from bala_especifica import Bala_especifica
-from jugador import Jugador
-from enemigo_especifico import Enemigo_especifico
+
+from models import constantes
+from models.bala_especifica import Bala_especifica
+from models.jugador import Jugador
+from models.enemigo_especifico import Enemigo_especifico
 if __name__ == "__main__":
     pygame.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])

@@ -1,4 +1,4 @@
-from bala_base import Bala_base
+from .bala_base import Bala_base
 class Bala_especifica(Bala_base):
 
     def __init__(self,pos):
