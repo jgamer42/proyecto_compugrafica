@@ -1,5 +1,5 @@
 import pygame
-import constantes
+from models import constantes
 
 def ciclo_de_juego(ventana,elementos,reloj,color):
     ventana.fill(color)

@@ -1,5 +1,5 @@
 import pygame
-import constantes
+from . import constantes
 class Enemigo_base(pygame.sprite.Sprite):
     def __init__(self,pos,direccion):
         pygame.sprite.Sprite.__init__(self)

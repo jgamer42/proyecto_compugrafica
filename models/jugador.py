@@ -1,5 +1,5 @@
 import pygame
-import constantes
+from . import constantes
 
 class Jugador(pygame.sprite.Sprite):
 

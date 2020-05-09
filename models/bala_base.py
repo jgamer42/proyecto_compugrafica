@@ -1,5 +1,5 @@
 import pygame
-import constantes
+from . import constantes
 
 class Bala_base(pygame.sprite.Sprite):
     def __init__(self,pos):
