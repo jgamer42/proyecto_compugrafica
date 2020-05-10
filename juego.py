@@ -6,6 +6,7 @@ from models import constantes
 from models.bala_especifica import Bala_especifica
 from models.jugador import Jugador
 from models.enemigo_especifico import Enemigo_especifico
+
 if __name__ == "__main__":
     pygame.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     balas_jugador = pygame.sprite.Group()
     niveles = [True,True,True,True,True]
     en_juego = False
-    
+
     while((not en_juego) and niveles[0]):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -61,7 +62,7 @@ if __name__ == "__main__":
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.BLANCO)
-    
+
     while((not en_juego) and niveles[2]):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -78,7 +79,7 @@ if __name__ == "__main__":
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.AZUL)
-    
+
     while((not en_juego) and niveles[3]):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -95,7 +96,7 @@ if __name__ == "__main__":
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
-    
+
     while((not en_juego) and niveles[4]):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -110,4 +111,4 @@ if __name__ == "__main__":
         elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NEGRO)   
+        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NEGRO)
