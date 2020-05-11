@@ -12,7 +12,7 @@ class Jugador(pygame.sprite.Sprite):
             cuadro = self.sabana.subsurface(80*c,0,80,85)
             self.nave.append(cuadro)
         #Variables
-        self.contador = 0
+        self.contador = -1
         self.velx = 0
         self.vely = 0
         self.image = self.nave[self.contador]
@@ -21,10 +21,11 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y = pos[1]
 
     def update(self):
-        if self.contador < 3:
+        if self.contador < 2:
             self.contador += 1
         else:
             self.contador = 0
+        self.image = self.nave[self.contador]
 
         self.control_limites()
         self.rect.x = self.velx + self.rect.x

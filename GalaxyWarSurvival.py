@@ -79,36 +79,3 @@ if __name__ == "__main__":
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.AZUL)
-
-    while((not en_juego) and niveles[3]):
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                en_juego = True
-            if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
-                if evento.key == pygame.K_SPACE:
-                    niveles[3] = False
-            if evento.type == pygame.KEYUP:
-                if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
-                    jugador.frenar()
-
-        elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
-        elementos_borrar = [balas_enemigos,balas_jugador]
-        ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
-
-    while((not en_juego) and niveles[4]):
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                en_juego = True
-            if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
-                if evento.key == pygame.K_SPACE:
-                    niveles[4] = False
-            if evento.type == pygame.KEYUP:
-                if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
-                    jugador.frenar()
-        elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
-        elementos_borrar = [balas_enemigos,balas_jugador]
-        ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NEGRO)
