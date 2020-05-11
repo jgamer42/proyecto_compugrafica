@@ -1,8 +1,5 @@
 # Galaxy War survival
-## participantes
-@jgamer42
-@Jhonatanls
-@JohnatanPalacios
+
 ## REQUERIMIENTOS
 
 * [ ] intro :sunglasses:
@@ -26,7 +23,7 @@
 ## ELEMENTOS DE JUEGO
 
 ### Jugador
-! [imagen jugador] (/Cosas_JeyP/naves/Nave_I.png)
+![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Cosas_Jeyp/naves/Nave_I.png)
 #### atributos
 
 * vida/ salud = ??
