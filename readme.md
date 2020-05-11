@@ -1,5 +1,8 @@
-# Proyecto de compugrafica (Nombre del juego)
-
+# Galaxy War survival
+## participantes
+@jgamer42
+@Jhonatanls
+@JohnatanPalacios
 ## REQUERIMIENTOS
 
 * [ ] intro :sunglasses:
@@ -23,19 +26,23 @@
 ## ELEMENTOS DE JUEGO
 
 ### Jugador
-
+! [imagen jugador] (/Cosas_JeyP/naves/Nave_I.png)
 #### atributos
 
 * vida/ salud = ??
 * daño = Varia segund el bala (ver tipos de balas)
-* velocidad = varia segud el estado (ver maquina de estados)
-
+* velocidad = 5 px
 #### comportamiento
 
 * colisiona con los bordes
 * no puede pasar de cierto punto de la pantalla
 * dispara proyectiles
 * posee diferentes estados
+
+#### detalles tecnicos
+  * tamaño del sprite = 80 X 85
+  * frames de animacion = 3
+  * estados posibles = ??
 
 #### anexos
 
@@ -53,13 +60,12 @@
 
   * vida = cuanta vida tienen
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 20 px
 
 * ##### comportamiento
 
-  * como se mueven
-  * cada cuanto disparan
-  * Automata o IA
+  * rebotan contra los limites laterales
+  * no tienen movimiento vertical
 
 #### tipo 2 (nombre)
 
@@ -67,13 +73,9 @@
 
   * vida = cuanta vida tienen
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 20 px
 
 * ##### comportamiento
-
-  * como se mueven
-  * cada cuanto disparan
-  * Automata o IA
 
 ---
 
@@ -84,36 +86,30 @@
 * ##### Atributos
 
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 50 px
 
 * ##### comportamiento
 
-  * como se mueven
-  * efectos
 
 #### tipo 2 (nombre)
 
 * ##### Atributos
 
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 50 px
 
 * ##### comportamiento
-
-  * como se mueven
-  * efectos
 
 #### tipo 3 (nombre)
 
 * ##### Atributos
 
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 50 px
 
 * ##### comportamiento
 
-  * como se mueven
-  * efectos
+
 -----
 
 ### spawner
