@@ -10,12 +10,13 @@ class Enemigo_base(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
+        self.direccion = 1
     
     def update(self):
         self.comportamiento_limites()
-        self.rect.x = self.rect.x + self.velx
+        self.rect.x = self.rect.x + self.velx*self.direccion
         self.rect.y = self.rect.y + self.vely
     
     def comportamiento_limites(self):
         if(self.rect.left <= 0) or (self.rect.right >= constantes.ANCHO):
-            self.velx = self.velx*-1
+            self.direccion = self.direccion*-1

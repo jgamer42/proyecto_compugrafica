@@ -87,15 +87,20 @@
 
 * ##### comportamiento
 
+  * rebota contra los limites de la pantalla
 
 #### tipo 2 (nombre)
 
 * ##### Atributos
 
-  * daño = tipo de bala disparado
+  * daño = 20 puntos
   * velocidad = 50 px
 
 * ##### comportamiento
+  * no dispara
+  * rebota contra los limites de la pantalla
+  * de manera aleatoria embiste al jugador para hacerle daño
+  * la embestida solo permite movimiento vertical
 
 #### tipo 3 (nombre)
 
