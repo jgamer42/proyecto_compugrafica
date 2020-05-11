@@ -5,7 +5,8 @@ import random
 from models import constantes
 from models.bala_especifica import Bala_especifica
 from models.jugador import Jugador
-from models.enemigo_especifico import Enemigo_especifico
+from models.enemigo1 import Enemigo1
+from models.enemigo2 import Enemigo2
 
 if __name__ == "__main__":
     pygame.init()
@@ -15,11 +16,17 @@ if __name__ == "__main__":
     jugadores = pygame.sprite.Group()
     jugadores.add(jugador)
     enemigos = pygame.sprite.Group()
-    for i in range(10):
+    for i in range(4):
         posx = random.randint(10,200)
         posy = random.randint(10,200)
         direccion = random.choice([-1,1])
-        enemigo = Enemigo_especifico([posx,posy],direccion)
+        enemigo = Enemigo2([posx,posy],direccion,100)
+        enemigos.add(enemigo)
+    for i in range(8):
+        posx = random.randint(10,200)
+        posy = random.randint(10,200)
+        direccion = random.choice([-1,1])
+        enemigo = Enemigo1([posx,posy],direccion)
         enemigos.add(enemigo)
 
     balas_enemigos = pygame.sprite.Group()

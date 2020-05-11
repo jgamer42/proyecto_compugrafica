@@ -6,12 +6,13 @@ class Jugador(pygame.sprite.Sprite):
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
         print("nave creada")
-        self.sabana = pygame.image.load("./Sprites/Naves/jugador1.png")
+        self.sabana = pygame.image.load("./Sprites/Jugador/jugador1.png")
         self.nave = []
         self.recorte_imagen()
+        self.frame=0
         self.velx = 0
         self.vely = 0
-        self.image = self.nave[0]
+        self.image = self.nave[self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -23,12 +24,11 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y = self.vely + self.rect.y
 
     def animar(self):
-        frame = 0
-        if frame < 1:
-            frame = frame + 1
+        if self.frame < 2:
+            self.frame = self.frame + 1
         else:
-            frame = 0
-        self.image = self.nave[frame]
+            self.frame = 0
+        self.image = self.nave[self.frame]
 
     def control_limites(self):
         if(self.rect.left <= 0):
