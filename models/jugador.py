@@ -5,23 +5,35 @@ class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
+        #Recorte de imagen
+        self.sabana = pygame.image.load("./Sprites/Naves/Sprite_Nave_I.png").convert_alpha()
+        self.nave = []
+        for c in range(3):
+            cuadro = self.sabana.subsurface(80*c,0,80,85)
+            self.nave.append(cuadro)
+        #Variables
+        self.contador = 0
         self.velx = 0
         self.vely = 0
-        self.image = pygame.Surface([50,50])
-        self.image.fill(constantes.ROJO)
+        self.image = self.nave[self.contador]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
-    
+
     def update(self):
+        if self.contador < 3:
+            self.contador += 1
+        else:
+            self.contador = 0
+
         self.control_limites()
         self.rect.x = self.velx + self.rect.x
         self.rect.y = self.vely + self.rect.y
-    
+
     def control_limites(self):
         if(self.rect.left <= 0):
             self.velx=0
-            self.rect.x = self.rect.x + 1 
+            self.rect.x = self.rect.x + 1
         if(self.rect.right >= constantes.ANCHO):
             self.velx = 0
             self.rect.x = self.rect.x - 1
@@ -50,4 +62,3 @@ class Jugador(pygame.sprite.Sprite):
     def frenar(self):
         self.velx=0
         self.vely=0
-    

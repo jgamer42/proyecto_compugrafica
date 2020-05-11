@@ -11,7 +11,7 @@ if __name__ == "__main__":
     pygame.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
-    jugador = Jugador([50,350])
+    jugador = Jugador([340,900])
     jugadores = pygame.sprite.Group()
     jugadores.add(jugador)
 
@@ -42,10 +42,10 @@ if __name__ == "__main__":
             if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
-        elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos]
+        elementos_dibujar =  [balas_enemigos,balas_jugador,jugadores,enemigos]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.MORADO)
+        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NEGRO)
 
     while((not en_juego) and niveles[1]):
         for evento in pygame.event.get():
