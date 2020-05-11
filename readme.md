@@ -73,6 +73,11 @@
   * velocidad = 20 px
 
 * ##### comportamiento
+  
+  * no dispara
+  * rebota contra los limites de la pantalla
+  * de manera aleatoria embiste al jugador para hacerle daño
+  * la embestida solo permite movimiento vertical
 
 ---
 
@@ -97,10 +102,7 @@
   * velocidad = 50 px
 
 * ##### comportamiento
-  * no dispara
-  * rebota contra los limites de la pantalla
-  * de manera aleatoria embiste al jugador para hacerle daño
-  * la embestida solo permite movimiento vertical
+ 
 
 #### tipo 3 (nombre)
 
