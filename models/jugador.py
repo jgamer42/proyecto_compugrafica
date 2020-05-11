@@ -6,10 +6,10 @@ class Jugador(pygame.sprite.Sprite):
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
         #Recorte de imagen
-        self.sabana = pygame.image.load("./Sprites/Naves/Sprite_Nave_I.png").convert_alpha()
+        self.sabana = pygame.image.load("./Sprites/Naves/Sprite_Nave_III.png").convert_alpha()
         self.nave = []
         for c in range(3):
-            cuadro = self.sabana.subsurface(80*c,0,80,85)
+            cuadro = self.sabana.subsurface(120*c,0,120,90)
             self.nave.append(cuadro)
         #Variables
         self.contador = -1
