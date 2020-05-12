@@ -3,7 +3,6 @@ import ambiente
 import random
 
 from models import constantes
-from models.bala_especifica import Bala_especifica
 from models.jugador import Jugador
 from models.enemigo1 import Enemigo1
 from models.enemigo2 import Enemigo2
@@ -40,12 +39,9 @@ if __name__ == "__main__":
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
+                jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_SPACE:
                     niveles[0] = False
-                if evento.key == pygame.K_z:
-                    bala = Bala_especifica([jugador.rect.x,jugador.rect.y])
-                    balas_jugador.add(bala)
             if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
@@ -60,12 +56,11 @@ if __name__ == "__main__":
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
+                jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_SPACE:
                     niveles[1] = False
             if evento.type == pygame.KEYUP:
                 jugador.frenar()
-
         elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
@@ -77,7 +72,7 @@ if __name__ == "__main__":
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
+                jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_SPACE:
                     niveles[2] = False
             if evento.type == pygame.KEYUP:
@@ -95,7 +90,7 @@ if __name__ == "__main__":
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
+                jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_SPACE:
                     niveles[3] = False
             if evento.type == pygame.KEYUP:
@@ -113,13 +108,12 @@ if __name__ == "__main__":
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento)
+                jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_SPACE:
                     niveles[4] = False
             if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
-
         elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
