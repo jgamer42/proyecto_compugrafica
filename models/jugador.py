@@ -16,9 +16,9 @@ class Jugador(pygame.sprite.Sprite):
         self.animaciones = []
         self.estado = 0
         self.frame = 0
-        sabana1 = pygame.image.load("./Sprites/PlayerShipSprite_I.png")
-        sabana2 = pygame.image.load("./Sprites/PlayerShipSprite_II.png")
-        sabana3 = pygame.image.load("./Sprites/PlayerShipSprite_III.png")
+        sabana1 = pygame.image.load("./Sprites/jugador/PlayerShipSprite_I.png")
+        sabana2 = pygame.image.load("./Sprites/jugador/PlayerShipSprite_II.png")
+        sabana3 = pygame.image.load("./Sprites/jugador/PlayerShipSprite_III.png")
         self.velx = 0
         self.vely = 0
         self.animaciones.append(utilidades.recorte_imagen(sabana1,[90,67]))

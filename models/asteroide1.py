@@ -6,7 +6,7 @@ from . import constantes
 class Asteroide1(Bloque_base):
     def __init__(self,pos):
         super().__init__(pos)
-        self.image = pygame.image.load("./Sprites/Asteroid.png")
+        self.image = pygame.image.load("./Sprites/bloques/Asteroid.png")
         self.rect = self.image.get_rect()
         self.velx = 0
         self.vely = constantes.VELOCIDAD_ENTORNO

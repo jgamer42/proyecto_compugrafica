@@ -10,7 +10,7 @@ class Enemigo1(Enemigo_base):
     def __init__(self,pos,direccion,lista_balas,agresividad):
         super().__init__(pos,direccion,agresividad)
         self.frame = 0
-        sabana = pygame.image.load("./Sprites/SpriteEnemyShip_I.png")
+        sabana = pygame.image.load("./Sprites/enemigos/SpriteEnemyShip_I.png")
         self.animacion = (utilidades.recorte_imagen(sabana,[62,95]))
         self.image = self.animacion[self.frame]
         self.rect = self.image.get_rect()
