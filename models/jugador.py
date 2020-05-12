@@ -5,12 +5,16 @@ class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
-        print("nave creada")
-        self.sabana = pygame.image.load("./Sprites/Jugador/jugador1.png")
-        self.nave = []
+        self.animaciones = []
+        self.estado = 0
+        self.frame = 0
+        sabana1 = pygame.image.load("./Sprites/Jugador/jugador1.png")
+        sabana2 = pygame.image.load("./Sprites/Jugador/jugador2.png")
         self.velx = 0
         self.vely = 0
-        self.image = self.nave[self.frame]
+        self.animaciones.append(self.recorte_imagen(sabana1,80,85))
+        self.animaciones.append(self.recorte_imagen(sabana2,80,85))
+        self.image = self.animaciones[self.estado][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -26,7 +30,7 @@ class Jugador(pygame.sprite.Sprite):
             self.frame = self.frame + 1
         else:
             self.frame = 0
-        self.image = self.nave[self.frame]
+        self.image = self.animaciones[self.estado][self.frame]
 
     def control_limites(self):
         if(self.rect.left <= 0):
@@ -56,12 +60,26 @@ class Jugador(pygame.sprite.Sprite):
         if(evento.key == pygame.K_DOWN):
             self.vely = 5
             self.velx = 0
+        if(evento.key == pygame.K_a):
+            self.cambio_animacion()
 
     def frenar(self):
         self.velx=0
         self.vely=0
     
-    def recorte_imagen(self):
+    def cambio_animacion(self):
+        pos_x = self.rect.x 
+        pos_y = self.rect.y
+        self.estado = self.estado + 1
+        self.image = self.animaciones[self.estado][self.frame]
+        self.rect = self.image.get_rect()
+        self.rect.x = pos_x
+        self.rect.y = pos_y
+    
+    def recorte_imagen(self,sabana,x,y):
+        animacion = []
         for c in range(3):
-            cuadro = self.sabana.subsurface(90*c,0,90,67)
-            self.nave.append(cuadro)
+            cuadro = sabana.subsurface(x*c,0,x,y)
+            animacion.append(cuadro)
+        return (animacion)
+        
