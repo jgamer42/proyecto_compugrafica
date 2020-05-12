@@ -6,7 +6,7 @@ class Bala1(Bala_base):
         super().__init__(pos)
         pos_x = self.rect.x
         pos_y = self.rect.y
-        sabana = pygame.image.load("./Sprites/balas/bala1.png")
+        sabana = pygame.image.load("./Sprites/SpritePlayerMisil_I.png")
         self.animacion = self.recorte_imagen(sabana,19,88)
         self.frame = 0
         self.image = self.animacion[self.frame]
@@ -14,12 +14,10 @@ class Bala1(Bala_base):
         self.rect.x = pos_x
         self.rect.y = pos_y
 
-    
+
     def recorte_imagen(self,sabana,x,y):
         animacion = []
         for c in range(3):
             cuadro = sabana.subsurface(x*c,0,x,y)
             animacion.append(cuadro)
         return (animacion)
-        
-    
