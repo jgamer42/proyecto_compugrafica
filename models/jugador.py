@@ -1,6 +1,8 @@
 import pygame
 from . import constantes
 
+from .bala1 import Bala1
+
 class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
@@ -13,7 +15,7 @@ class Jugador(pygame.sprite.Sprite):
         self.velx = 0
         self.vely = 0
         self.animaciones.append(self.recorte_imagen(sabana1,80,85))
-        self.animaciones.append(self.recorte_imagen(sabana2,80,85))
+        self.animaciones.append(self.recorte_imagen(sabana2,120,90))
         self.image = self.animaciones[self.estado][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
@@ -47,7 +49,7 @@ class Jugador(pygame.sprite.Sprite):
             self.vely = 0
             self.rect.y = self.rect.y - 1
 
-    def controles(self,evento):
+    def controles(self,evento,lista_balas):
         if(evento.key == pygame.K_RIGHT):
             self.velx = 5
             self.vely = 0
@@ -62,10 +64,17 @@ class Jugador(pygame.sprite.Sprite):
             self.velx = 0
         if(evento.key == pygame.K_a):
             self.cambio_animacion()
+        if(evento.key == pygame.K_s):
+            self.disparar(lista_balas)
 
     def frenar(self):
         self.velx=0
         self.vely=0
+
+    def disparar(self,lista_balas):
+        origen_disparo = self.rect.center
+        bala = Bala1(origen_disparo)
+        lista_balas.add(bala)
     
     def cambio_animacion(self):
         pos_x = self.rect.x 
