@@ -18,6 +18,8 @@ if __name__ == "__main__":
     enemigos = pygame.sprite.Group()
     balas_enemigos = pygame.sprite.Group()
     balas_jugador = pygame.sprite.Group()
+    PantInit = pygame.image.load("./Sprites/UniversePantInit.png")
+    LogoPantInit = pygame.image.load("./Sprites/LogoPantInit.png")
     for i in range(4):
         posx = random.randint(10,200)
         posy = random.randint(10,200)
@@ -39,20 +41,24 @@ if __name__ == "__main__":
 
     #Pantalla de inicio
     while((not en_juego) and niveles[0]):
+        ventana.blit(PantInit, [0,0])
+        ventana.blit(LogoPantInit, [180,90])
+        pygame.display.flip()
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento,balas_jugador)
+                #jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_SPACE:
                     niveles[0] = False
-            if evento.type == pygame.KEYUP:
-                if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
-                    jugador.frenar()
+            #if evento.type == pygame.KEYUP:
+                #if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
+                    
+                    '''jugador.frenar()
         elementos_dibujar =  [balas_enemigos,balas_jugador,jugadores,enemigos,asteroides]
         elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
         ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.MORADO)
+        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.MORADO)'''
 
     #Nivel 1
     while((not en_juego) and niveles[1]):
