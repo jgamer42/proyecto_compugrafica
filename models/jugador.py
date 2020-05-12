@@ -8,8 +8,6 @@ class Jugador(pygame.sprite.Sprite):
         print("nave creada")
         self.sabana = pygame.image.load("./Sprites/Jugador/jugador1.png")
         self.nave = []
-        self.recorte_imagen()
-        self.frame=0
         self.velx = 0
         self.vely = 0
         self.image = self.nave[self.frame]
@@ -65,5 +63,5 @@ class Jugador(pygame.sprite.Sprite):
     
     def recorte_imagen(self):
         for c in range(3):
-            cuadro = self.sabana.subsurface(80*c,0,80,85)
+            cuadro = self.sabana.subsurface(90*c,0,90,67)
             self.nave.append(cuadro)
