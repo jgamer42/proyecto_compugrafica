@@ -23,7 +23,7 @@
 ## ELEMENTOS DE JUEGO
 
 ### Jugador
-![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/Jugador/jugador1.png)
+![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/PlayerShipSprite_I.png)
 #### atributos
 
 * vida/ salud = ??
@@ -84,7 +84,7 @@
 
 #### tipo 1 (nombre)
  
- ![balas tipo1](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/balas/bala1.png)
+ ![balas tipo1](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/SpritePlayerMisil_I.png)
 
 * ##### Atributos
 
