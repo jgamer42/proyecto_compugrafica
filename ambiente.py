@@ -7,7 +7,7 @@ def ciclo_de_juego(ventana,elementos,reloj,color):
         elemento.draw(ventana)
         elemento.update()
     pygame.display.flip()
-    reloj.tick(20)
+    reloj.tick(constantes.NUMERO_FPS)
 
 def protector_memoria(elementos):
     for elemento in elementos:

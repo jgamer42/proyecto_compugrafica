@@ -3,8 +3,12 @@ from . import utilidades
 from . import constantes
 from .misil import Misil
 
-#cambios realizados
-#1. arreglado problema de los misiles
+#cambios
+#1. se encapsulo el metodo animar en el paquete de utilidades
+# ver nueva logica de animacion en el update
+# implementacion particular, como esta es una matriz de animacion
+# hay que tomar en cuenta que la animacion varia segun el estado
+# pero las animacion de cada estado depende el frame
 class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
@@ -26,17 +30,11 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y = pos[1]
 
     def update(self):
-        self.animar()
+        self.frame = utilidades.animar(self.frame,3)
+        self.image = self.animaciones[self.estado][self.frame]
         self.control_limites()
         self.rect.x = self.velx + self.rect.x
         self.rect.y = self.vely + self.rect.y
-
-    def animar(self):
-        if self.frame < 2:
-            self.frame = self.frame + 1
-        else:
-            self.frame = 0
-        self.image = self.animaciones[self.estado][self.frame]
 
     def control_limites(self):
         if(self.rect.left <= 0):

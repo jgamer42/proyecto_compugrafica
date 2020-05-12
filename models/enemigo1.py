@@ -4,8 +4,8 @@ from .enemigo_base import Enemigo_base
 from .misil import Misil
 from . import utilidades
 #cambios
-#1. agregadas funcionalidad de disparo
-#2. sprite y animacion
+#1. se encapsulo el metodo animar en el paquete de utilidades
+# ver nueva logica de animacion en el update
 class Enemigo1(Enemigo_base):
     def __init__(self,pos,direccion,lista_balas,agresividad):
         super().__init__(pos,direccion,agresividad)
@@ -14,6 +14,8 @@ class Enemigo1(Enemigo_base):
         self.animacion = (utilidades.recorte_imagen(sabana,[62,95]))
         self.image = self.animacion[self.frame]
         self.rect = self.image.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
         self.lista_balas = lista_balas
         self.atacando = False
 
@@ -26,13 +28,7 @@ class Enemigo1(Enemigo_base):
             self.lista_balas.add(bala)
 
     def update(self):
-        self.animar()
         self.atacar()
-        super().update()
-
-    def animar(self):
-        if self.frame < 2:
-            self.frame = self.frame + 1
-        else:
-            self.frame = 0
+        self.frame = utilidades.animar(self.frame,3)
         self.image = self.animacion[self.frame]
+        super().update()
