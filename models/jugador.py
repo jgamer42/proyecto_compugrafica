@@ -10,12 +10,14 @@ class Jugador(pygame.sprite.Sprite):
         self.animaciones = []
         self.estado = 0
         self.frame = 0
-        sabana1 = pygame.image.load("./Sprites/Jugador/jugador1.png")
-        sabana2 = pygame.image.load("./Sprites/Jugador/jugador2.png")
+        sabana1 = pygame.image.load("./Sprites/PlayerShipSprite_I.png")
+        sabana2 = pygame.image.load("./Sprites/PlayerShipSprite_II.png")
+        sabana3 = pygame.image.load("./Sprites/PlayerShipSprite_III.png")
         self.velx = 0
         self.vely = 0
-        self.animaciones.append(self.recorte_imagen(sabana1,80,85))
-        self.animaciones.append(self.recorte_imagen(sabana2,120,90))
+        self.animaciones.append(self.recorte_imagen(sabana1,90,67))
+        self.animaciones.append(self.recorte_imagen(sabana2,80,85))
+        self.animaciones.append(self.recorte_imagen(sabana3,120,90))
         self.image = self.animaciones[self.estado][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
@@ -75,20 +77,19 @@ class Jugador(pygame.sprite.Sprite):
         origen_disparo = self.rect.center
         bala = Bala1(origen_disparo)
         lista_balas.add(bala)
-    
+
     def cambio_animacion(self):
-        pos_x = self.rect.x 
+        pos_x = self.rect.x
         pos_y = self.rect.y
         self.estado = self.estado + 1
         self.image = self.animaciones[self.estado][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
-    
+
     def recorte_imagen(self,sabana,x,y):
         animacion = []
         for c in range(3):
             cuadro = sabana.subsurface(x*c,0,x,y)
             animacion.append(cuadro)
         return (animacion)
-        
