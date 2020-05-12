@@ -13,7 +13,6 @@ def protector_memoria(elementos):
     for elemento in elementos:
         for e in elemento:
             if(e.rect.bottom <= 0) or (e.rect.top > constantes.ALTO):
-                print("borrado")
                 elemento.remove(e)
             if(e.rect.x <= 0) or (e.rect.x > constantes.ANCHO):
                 elemento.remove(e)

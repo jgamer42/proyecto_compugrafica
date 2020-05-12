@@ -6,7 +6,7 @@ class Bloque_base(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.velx = 0
         self.vely = 0
-        self.image = pygame.Surface([10,50])
+        self.image = pygame.Surface([100,100])
         self.image.fill(constantes.ROJO)
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]

@@ -4,11 +4,7 @@ from . import constantes
 from .misil import Misil
 
 #cambios realizados
-#1. creado funcionalidad pedida por JeyP de misiles laterales
-#2. la funcion recortar imagen se puso en el archivo utilidades
-#motivo: esto porque dicha funcion pude ser reusada en otros elementos del juego
-#3. la tecla para cambiar de sprite se cambio por la S
-#motivo: la tecla usada previamente esta ocupada por la nueva funcionalidad de disparo
+#1. arreglado problema de los misiles
 class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
@@ -72,10 +68,10 @@ class Jugador(pygame.sprite.Sprite):
             self.velx = 0
         if(evento.key == pygame.K_s):
             self.cambio_animacion()
-        if(evento.key == pygame.K_a):
-            origen_disparo = [self.rect.right,self.rect.y]
-            self.disparar(lista_balas,origen_disparo)
         if(evento.key == pygame.K_d):
+            origen_disparo = [self.rect.right-20,self.rect.y]
+            self.disparar(lista_balas,origen_disparo)
+        if(evento.key == pygame.K_a):
             origen_disparo = [self.rect.left,self.rect.y]
             self.disparar(lista_balas,origen_disparo)
 
@@ -84,7 +80,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely=0
 
     def disparar(self,lista_balas,origen_disparo):
-        bala = Misil(origen_disparo)
+        bala = Misil(origen_disparo,-1)
         lista_balas.add(bala)
 
     def cambio_animacion(self):

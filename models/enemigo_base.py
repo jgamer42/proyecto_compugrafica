@@ -1,7 +1,7 @@
 import pygame
 from . import constantes
 class Enemigo_base(pygame.sprite.Sprite):
-    def __init__(self,pos,direccion):
+    def __init__(self,pos,direccion,agresividad):
         pygame.sprite.Sprite.__init__(self)
         self.velx = 20*direccion
         self.vely = 0
@@ -11,6 +11,7 @@ class Enemigo_base(pygame.sprite.Sprite):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.direccion = 1
+        self.agresividad = agresividad
     
     def update(self):
         self.comportamiento_limites()

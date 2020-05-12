@@ -6,6 +6,7 @@ from models import constantes
 from models.jugador import Jugador
 from models.enemigo1 import Enemigo1
 from models.enemigo2 import Enemigo2
+from models.asteroide1 import Asteroide1
 
 if __name__ == "__main__":
     pygame.init()
@@ -15,6 +16,8 @@ if __name__ == "__main__":
     jugadores = pygame.sprite.Group()
     jugadores.add(jugador)
     enemigos = pygame.sprite.Group()
+    balas_enemigos = pygame.sprite.Group()
+    balas_jugador = pygame.sprite.Group()
     for i in range(4):
         posx = random.randint(10,200)
         posy = random.randint(10,200)
@@ -25,11 +28,12 @@ if __name__ == "__main__":
         posx = random.randint(10,200)
         posy = random.randint(10,200)
         direccion = random.choice([-1,1])
-        enemigo = Enemigo1([posx,posy],direccion)
+        enemigo = Enemigo1([posx,posy],direccion,balas_enemigos,100)
         enemigos.add(enemigo)
+    asteroide = Asteroide1([50,50])
+    asteroides = pygame.sprite.Group()
+    asteroides.add(asteroide)
 
-    balas_enemigos = pygame.sprite.Group()
-    balas_jugador = pygame.sprite.Group()
     niveles = [True,True,True,True,True]
     en_juego = False
 
@@ -45,8 +49,8 @@ if __name__ == "__main__":
             if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
-        elementos_dibujar =  [balas_enemigos,balas_jugador,jugadores,enemigos]
-        elementos_borrar = [balas_enemigos,balas_jugador]
+        elementos_dibujar =  [balas_enemigos,balas_jugador,jugadores,enemigos,asteroides]
+        elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.MORADO)
 

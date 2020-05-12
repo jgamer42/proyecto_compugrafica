@@ -3,14 +3,14 @@ from . import constantes
 import random
 class Enemigo2(Enemigo_base):
     def __init__(self,pos,direccion,agresividad):
-        super().__init__(pos,direccion)
+        super().__init__(pos,direccion,agresividad)
         self.daño = 20
         self.atacando = False
         self.posy_inicial = pos[1]
         self.image.fill(constantes.NARANJA)
         self.agresividad = agresividad
     
-    def comportamiento(self):
+    def atacar(self):
         ataque=None
         if not(self.atacando):
             ataque = random.randint(0,self.agresividad)
@@ -20,7 +20,6 @@ class Enemigo2(Enemigo_base):
             self.atacando = True
         
     def comportamiento_limites(self):
-        self.comportamiento()
         if(self.atacando):
             if(self.rect.y > constantes.ZONA_JUEGO) and(self.vely >0):
                 self.vely = -1*self.vely
@@ -29,5 +28,9 @@ class Enemigo2(Enemigo_base):
                 self.velx = 20
                 self.atacando = False
         super().comportamiento_limites()
+    
+    def update(self):
+        self.atacar()
+        super().update()
 
 
