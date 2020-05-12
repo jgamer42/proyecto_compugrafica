@@ -5,31 +5,28 @@ class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
-        #Recorte de imagen
-        self.sabana = pygame.image.load("./Sprites/Naves/Sprite_Nave_I.png").convert_alpha()
+        print("nave creada")
+        self.sabana = pygame.image.load("./Sprites/Jugador/jugador1.png")
         self.nave = []
-        for c in range(3):
-            cuadro = self.sabana.subsurface(90*c,0,90,67)
-            self.nave.append(cuadro)
-        #Variables
-        self.contador = -1
         self.velx = 0
         self.vely = 0
-        self.image = self.nave[self.contador]
+        self.image = self.nave[self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
 
     def update(self):
-        if self.contador < 2:
-            self.contador += 1
-        else:
-            self.contador = 0
-        self.image = self.nave[self.contador]
-
+        self.animar()
         self.control_limites()
         self.rect.x = self.velx + self.rect.x
         self.rect.y = self.vely + self.rect.y
+
+    def animar(self):
+        if self.frame < 2:
+            self.frame = self.frame + 1
+        else:
+            self.frame = 0
+        self.image = self.nave[self.frame]
 
     def control_limites(self):
         if(self.rect.left <= 0):
@@ -63,3 +60,8 @@ class Jugador(pygame.sprite.Sprite):
     def frenar(self):
         self.velx=0
         self.vely=0
+    
+    def recorte_imagen(self):
+        for c in range(3):
+            cuadro = self.sabana.subsurface(90*c,0,90,67)
+            self.nave.append(cuadro)

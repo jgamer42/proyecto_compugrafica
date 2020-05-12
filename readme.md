@@ -1,4 +1,4 @@
-# Proyecto de compugrafica (Nombre del juego)
+# Galaxy War survival
 
 ## REQUERIMIENTOS
 
@@ -23,19 +23,23 @@
 ## ELEMENTOS DE JUEGO
 
 ### Jugador
-
+![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Cosas_Jeyp/naves/Nave_I.png)
 #### atributos
 
 * vida/ salud = ??
 * daño = Varia segund el bala (ver tipos de balas)
-* velocidad = varia segud el estado (ver maquina de estados)
-
+* velocidad = 5 px
 #### comportamiento
 
 * colisiona con los bordes
 * no puede pasar de cierto punto de la pantalla
 * dispara proyectiles
 * posee diferentes estados
+
+#### detalles tecnicos
+  * tamaño del sprite = 80 X 85
+  * frames de animacion = 3
+  * estados posibles = ??
 
 #### anexos
 
@@ -53,13 +57,12 @@
 
   * vida = cuanta vida tienen
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 20 px
 
 * ##### comportamiento
 
-  * como se mueven
-  * cada cuanto disparan
-  * Automata o IA
+  * rebotan contra los limites laterales
+  * no tienen movimiento vertical
 
 #### tipo 2 (nombre)
 
@@ -67,13 +70,14 @@
 
   * vida = cuanta vida tienen
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 20 px
 
 * ##### comportamiento
-
-  * como se mueven
-  * cada cuanto disparan
-  * Automata o IA
+  
+  * no dispara
+  * rebota contra los limites de la pantalla
+  * de manera aleatoria embiste al jugador para hacerle daño
+  * la embestida solo permite movimiento vertical
 
 ---
 
@@ -84,36 +88,32 @@
 * ##### Atributos
 
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 50 px
 
 * ##### comportamiento
 
-  * como se mueven
-  * efectos
+  * rebota contra los limites de la pantalla
 
 #### tipo 2 (nombre)
 
 * ##### Atributos
 
-  * daño = tipo de bala disparado
-  * velocidad = ??
+  * daño = 20 puntos
+  * velocidad = 50 px
 
 * ##### comportamiento
-
-  * como se mueven
-  * efectos
+ 
 
 #### tipo 3 (nombre)
 
 * ##### Atributos
 
   * daño = tipo de bala disparado
-  * velocidad = ??
+  * velocidad = 50 px
 
 * ##### comportamiento
 
-  * como se mueven
-  * efectos
+
 -----
 
 ### spawner
