@@ -23,7 +23,7 @@
 ## ELEMENTOS DE JUEGO
 
 ### Jugador
-![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Cosas_Jeyp/naves/Nave_I.png)
+![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/Jugador/jugador1.png)
 #### atributos
 
 * vida/ salud = ??
@@ -37,7 +37,6 @@
 * posee diferentes estados
 
 #### detalles tecnicos
-  * tamaño del sprite = 80 X 85
   * frames de animacion = 3
   * estados posibles = ??
 
@@ -84,15 +83,17 @@
 ### Balas
 
 #### tipo 1 (nombre)
+ 
+ ![balas tipo1](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/balas/bala1.png)
 
 * ##### Atributos
 
-  * daño = tipo de bala disparado
+  * daño = ???
   * velocidad = 50 px
 
 * ##### comportamiento
 
-  * rebota contra los limites de la pantalla
+  * se mueve de manera vertical hasta salir de la pantalla
 
 #### tipo 2 (nombre)
 
