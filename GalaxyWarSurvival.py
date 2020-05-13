@@ -32,15 +32,15 @@ if __name__ == "__main__":
 
     #Pantalla de inicio
     while((not en_juego) and niveles[0]):
-        ventana.blit(PantInit, [0,0])
-        ventana.blit(LogoPantInit, [180,90])
-        pygame.display.flip()
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_SPACE:
                     niveles[0] = False
+        ventana.blit(PantInit, [0,0])
+        ventana.blit(LogoPantInit, [180,90])
+        pygame.display.flip()
     
     for i in range(4):
         posx = random.randint(10,200)
@@ -86,7 +86,6 @@ if __name__ == "__main__":
             if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
-
         elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
@@ -104,38 +103,27 @@ if __name__ == "__main__":
             if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
-
         elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
-        #fin de juego
-    if niveles[3] == False:
-        ventana.fill(constantes.NEGRO)
-        ventana.blit(GameOver, [0,0])
-        pygame.display.flip()
+
+    #fin de juego
+    cargar = GameOver
     while((not en_juego) and niveles[4]):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                #jugador.controles(evento,balas_jugador)
                 if evento.key == pygame.K_DOWN:
                     niveles[1] = True
                 if evento.key == pygame.K_RIGHT:
-                    ventana.fill(constantes.NEGRO)
-                    ventana.blit(GameOver2, [2,0])
-                    pygame.display.flip()
+                    cargar = GameOver2
                 if evento.key == pygame.K_LEFT:
-                    ventana.fill(constantes.NEGRO)
-                    ventana.blit(GameOver, [0,0])
-                    pygame.display.flip()
+                    cargar = GameOver
                 if evento.key == pygame.K_RETURN:
                     niveles[4] = False
-            '''if evento.type == pygame.KEYUP:
-                if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
-                    jugador.frenar()
-        elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
-        elementos_borrar = [balas_enemigos,balas_jugador]
-        ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.ROJO)'''
+        ventana.fill(constantes.NEGRO)
+        ventana.blit(cargar, [0,0])
+        pygame.display.flip()
+            
