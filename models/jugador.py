@@ -3,12 +3,6 @@ from . import utilidades
 from . import constantes
 from .misil import Misil
 
-#cambios
-#1. se encapsulo el metodo animar en el paquete de utilidades
-# ver nueva logica de animacion en el update
-# implementacion particular, como esta es una matriz de animacion
-# hay que tomar en cuenta que la animacion varia segun el estado
-# pero las animacion de cada estado depende el frame
 class Jugador(pygame.sprite.Sprite):
 
     def __init__(self,pos):
@@ -21,9 +15,9 @@ class Jugador(pygame.sprite.Sprite):
         sabana3 = pygame.image.load("./Sprites/jugador/PlayerShipSprite_III.png")
         self.velx = 0
         self.vely = 0
-        self.animaciones.append(utilidades.recorte_imagen(sabana1,[90,67]))
-        self.animaciones.append(utilidades.recorte_imagen(sabana2,[80,85]))
-        self.animaciones.append(utilidades.recorte_imagen(sabana3,[120,90]))
+        self.animaciones.append(utilidades.recorte_imagen(sabana1,[90,67],3))
+        self.animaciones.append(utilidades.recorte_imagen(sabana2,[80,85],3))
+        self.animaciones.append(utilidades.recorte_imagen(sabana3,[120,90],3))
         self.image = self.animaciones[self.estado][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
@@ -52,26 +46,30 @@ class Jugador(pygame.sprite.Sprite):
             self.rect.y = self.rect.y - 1
 
     def controles(self,evento,lista_balas):
-        if(evento.key == pygame.K_RIGHT):
-            self.velx = 5
-            self.vely = 0
-        if(evento.key == pygame.K_LEFT):
-            self.velx = -5
-            self.vely = 0
-        if(evento.key == pygame.K_UP):
-            self.vely = -5
-            self.velx = 0
-        if(evento.key == pygame.K_DOWN):
-            self.vely = 5
-            self.velx = 0
-        if(evento.key == pygame.K_s):
-            self.cambio_animacion()
-        if(evento.key == pygame.K_d):
-            origen_disparo = [self.rect.right-20,self.rect.y]
-            self.disparar(lista_balas,origen_disparo)
-        if(evento.key == pygame.K_a):
-            origen_disparo = [self.rect.left,self.rect.y]
-            self.disparar(lista_balas,origen_disparo)
+        if(evento.type == pygame.KEYDOWN):
+            if(evento.key == pygame.K_RIGHT):
+                self.velx = 5
+                self.vely = 0
+            if(evento.key == pygame.K_LEFT):
+                self.velx = -5
+                self.vely = 0
+            if(evento.key == pygame.K_UP):
+                self.vely = -5
+                self.velx = 0
+            if(evento.key == pygame.K_DOWN):
+                self.vely = 5
+                self.velx = 0
+            if(evento.key == pygame.K_s):
+                self.cambio_animacion()
+            if(evento.key == pygame.K_d):
+                origen_disparo = [self.rect.right-20,self.rect.y]
+                self.disparar(lista_balas,origen_disparo)
+            if(evento.key == pygame.K_a):
+                origen_disparo = [self.rect.left,self.rect.y]
+                self.disparar(lista_balas,origen_disparo)
+        if evento.type == pygame.KEYUP:
+            if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
+                self.frenar()
 
     def frenar(self):
         self.velx=0

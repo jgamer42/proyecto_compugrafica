@@ -15,7 +15,7 @@ class Misil(Bala_base):
             sabana = pygame.image.load("./Sprites/balas/SpriteEnemyMisil_I.png")
         else:
             sabana = pygame.image.load("./Sprites/balas/SpritePlayerMisil_I.png")
-        self.animacion = utilidades.recorte_imagen(sabana,[19,88])
+        self.animacion = utilidades.recorte_imagen(sabana,[19,88],3)
         self.frame = 0
         self.image = self.animacion[self.frame]
         self.rect = self.image.get_rect()

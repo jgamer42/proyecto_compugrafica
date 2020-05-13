@@ -14,132 +14,86 @@ if __name__ == "__main__":
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
     jugador = Jugador([340,400])
+    niveles = [True,True,True,True,True]
+    en_juego = [True]
 
     jugadores = pygame.sprite.Group()
     enemigos = pygame.sprite.Group()
     balas_enemigos = pygame.sprite.Group()
     balas_jugador = pygame.sprite.Group()
-
+    asteroides = pygame.sprite.Group()
     jugadores.add(jugador)
 
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
-
-    sabana = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
-    GameOver = []
-    for c in range(2):
-        cuadro = sabana.subsurface(768*c,0,768,1000)
-        GameOver.append(cuadro)
+    sabana_game_over = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
+    GameOver = utilidades.recorte_imagen(sabana_game_over,[767,1000],2)
     estado = 0
-    cargar = GameOver[0]
+    cargar = GameOver[estado]
 
-    niveles = [True,True,True,True,True]
-    en_juego = False
+    utilidades.generar_enemigos(enemigos,balas_enemigos)
+    utilidades.generar_asteroides(asteroides)
 
-    #Pantalla de inicio
-    while ((not en_juego) and niveles[0]):
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                en_juego = True
-            if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_SPACE:
-                    niveles[0] = False
-        ventana.blit(PantInit, [0,0])
-        ventana.blit(LogoPantInit, [180,90])
-        pygame.display.flip()
-
-    for i in range(4):
-        posx = random.randint(10,200)
-        posy = random.randint(10,200)
-        direccion = random.choice([-1,1])
-        enemigo = Enemigo2([posx,posy],direccion,100)
-        enemigos.add(enemigo)
-    for i in range(8):
-        posx = random.randint(10,200)
-        posy = random.randint(10,200)
-        direccion = random.choice([-1,1])
-        enemigo = Enemigo1([posx,posy],direccion,balas_enemigos,100)
-        enemigos.add(enemigo)
-    asteroide = Asteroide1([50,50])
-    asteroides = pygame.sprite.Group()
-    asteroides.add(asteroide)
-
-    while ((not en_juego) and niveles[0]):
-        #Nivel 1
-        while niveles[1]:
+    while (en_juego[0]):
+        #Pantalla de inicio
+        while (niveles[0] and en_juego[0]):
             for evento in pygame.event.get():
-                if evento.type == pygame.QUIT:
-                    en_juego = True
-                if evento.type == pygame.KEYDOWN:
-                    jugador.controles(evento,balas_jugador)
-                    if evento.key == pygame.K_SPACE:
-                        niveles[1] = False
-                if evento.type == pygame.KEYUP:
-                    jugador.frenar()
+                ambiente.controles(evento,niveles,estado,0,en_juego)
+            ventana.blit(PantInit, [0,0])
+            ventana.blit(LogoPantInit, [180,90])
+            pygame.display.flip()
+
+        #Nivel 1
+        while (niveles[1] and en_juego[0]):
+            for evento in pygame.event.get():
+                ambiente.controles(evento,niveles,estado,1,en_juego)
+                jugador.controles(evento,balas_jugador)
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides,enemigos]
             elementos_borrar = [balas_enemigos,balas_jugador]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.BLANCO)
 
         #Nivel 2
-        while ((not en_juego) and niveles[2]):
+        while (niveles[2] and en_juego[0]):
             for evento in pygame.event.get():
-                if evento.type == pygame.QUIT:
-                    en_juego = True
-                if evento.type == pygame.KEYDOWN:
-                    jugador.controles(evento,balas_jugador)
-                    if evento.key == pygame.K_SPACE:
-                        niveles[2] = False
-                if evento.type == pygame.KEYUP:
-                    if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
-                        jugador.frenar()
+                jugador.controles(evento,balas_jugador)
+                ambiente.controles(evento,niveles,estado,2,en_juego)
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides]
             elementos_borrar = [balas_enemigos,balas_jugador]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.AZUL)
 
         #Nivel 3
-        while ((not en_juego) and niveles[3]):
+        while (niveles[3] and en_juego[0]):
             for evento in pygame.event.get():
-                if evento.type == pygame.QUIT:
-                    en_juego = True
-                if evento.type == pygame.KEYDOWN:
-                    jugador.controles(evento,balas_jugador)
-                    if evento.key == pygame.K_SPACE:
-                        niveles[3] = False
-                if evento.type == pygame.KEYUP:
-                    if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
-                        jugador.frenar()
+                ambiente.controles(evento,niveles,estado,3,en_juego)
+                jugador.controles(evento,balas_jugador)
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides]
             elementos_borrar = [balas_enemigos,balas_jugador]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
 
         #fin de juego
-        while ((not en_juego) and niveles[4]):
+        niveles[4] = True
+        while (niveles[4] and en_juego[0]):
             for evento in pygame.event.get():
-                if evento.type == pygame.QUIT:
-                    en_juego = True
+                ambiente.controles(evento,niveles,estado,4,en_juego)
                 if evento.type == pygame.KEYDOWN:
-                    if evento.key == pygame.K_SPACE:
-                        niveles[1] = True
-                        if estado == 0:
+                    if (evento.key == pygame.K_SPACE):
+                        if(estado == 0):
                             niveles[4] = False
-                            en_juego = True
-                        if estado == 1:
+                            en_juego = False
+                        elif(estado == 1):
+                            niveles[0] = True
                             niveles[1] = True
                             niveles[2] = True
                             niveles[3] = True
                             niveles[4] = False
-                    if evento.key == pygame.K_RIGHT:
-                        cargar = GameOver[1]
+                    if (evento.key == pygame.K_RIGHT):
                         estado = 1
-                    if evento.key == pygame.K_LEFT:
-                        cargar = GameOver[0]
+                    if (evento.key == pygame.K_LEFT):
                         estado = 0
-            #ventana.fill(constantes.NEGRO)
+            cargar=GameOver[estado]
+            ventana.fill(constantes.NEGRO)
             ventana.blit(cargar, [0,0])
             pygame.display.flip()
-
-        if niveles[1] == True and niveles[2] == True and niveles[3] == True:
-            niveles[4] = True

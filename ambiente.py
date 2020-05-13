@@ -16,3 +16,14 @@ def protector_memoria(elementos):
                 elemento.remove(e)
             if(e.rect.x <= 0) or (e.rect.x > constantes.ANCHO):
                 elemento.remove(e)
+
+def controles(evento,niveles,estado,nivel,en_juego):
+    if(evento.type == pygame.KEYDOWN):
+        if (nivel==4):
+            pass
+        else:
+            if (evento.key == pygame.K_SPACE):
+                niveles[nivel]=False
+    if evento.type == pygame.QUIT:
+        en_juego[0] = False
+            
