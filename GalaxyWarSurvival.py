@@ -24,6 +24,9 @@ if __name__ == "__main__":
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
 
+    GameOver = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
+    GameOver2 = pygame.image.load("./Sprites/fondos/SpriteGameOver2.png")
+
     niveles = [True,True,True,True,True]
     en_juego = False
 
@@ -106,20 +109,33 @@ if __name__ == "__main__":
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
         ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
-
-    #fin de juego
+        #fin de juego
+    if niveles[3] == False:
+        ventana.fill(constantes.NEGRO)
+        ventana.blit(GameOver, [0,0])
+        pygame.display.flip()
     while((not en_juego) and niveles[4]):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 en_juego = True
             if evento.type == pygame.KEYDOWN:
-                jugador.controles(evento,balas_jugador)
-                if evento.key == pygame.K_SPACE:
+                #jugador.controles(evento,balas_jugador)
+                if evento.key == pygame.K_DOWN:
+                    niveles[1] = True
+                if evento.key == pygame.K_RIGHT:
+                    ventana.fill(constantes.NEGRO)
+                    ventana.blit(GameOver2, [2,0])
+                    pygame.display.flip()
+                if evento.key == pygame.K_LEFT:
+                    ventana.fill(constantes.NEGRO)
+                    ventana.blit(GameOver, [0,0])
+                    pygame.display.flip()
+                if evento.key == pygame.K_RETURN:
                     niveles[4] = False
-            if evento.type == pygame.KEYUP:
+            '''if evento.type == pygame.KEYUP:
                 if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                     jugador.frenar()
         elementos_dibujar = [balas_enemigos,balas_jugador,jugadores]
         elementos_borrar = [balas_enemigos,balas_jugador]
         ambiente.protector_memoria(elementos_borrar)
-        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.ROJO)
+        ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.ROJO)'''
