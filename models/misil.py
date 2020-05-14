@@ -21,6 +21,7 @@ class Misil(Bala_base):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
+        self.type = "misil"
 
     def update(self):
         super().update()
