@@ -18,7 +18,8 @@ from models import utilidades
 #5. se agrego la forma de limpieza de asterorides (ver ambiente.py proteger_memoria)
 if __name__ == "__main__":
     pygame.init()
-    pygame.mixer.init()
+
+    pygame.mixer.init() #Inicia el mezclador de música
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
     jugador = Jugador([340,400])
@@ -33,6 +34,8 @@ if __name__ == "__main__":
     jugadores.add(jugador)
 
     music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
+
+    music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
     sabana_game_over = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
@@ -44,8 +47,8 @@ if __name__ == "__main__":
     utilidades.generar_asteroides(asteroides)
 
     while (en_juego[0]):
-
-        music_intro.set_volume(0.1)
+        #Pantalla de inicio
+        music_intro.set_volume(0.3) #float, valores entre 0 y 1
         music_intro.play(-1)
 
         while (niveles[0] and en_juego[0]):
@@ -93,6 +96,8 @@ if __name__ == "__main__":
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
 
         #fin de juego
+        music_out.set_volume(0.3)
+        music_out.play(-1)
         niveles[4] = True
         while (niveles[4] and en_juego[0]):
             for evento in pygame.event.get():
