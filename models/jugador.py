@@ -64,9 +64,11 @@ class Jugador(pygame.sprite.Sprite):
             if(evento.key == pygame.K_d):
                 origen_disparo = [self.rect.right-20,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
+                self.reproducir_sonido()
             if(evento.key == pygame.K_a):
                 origen_disparo = [self.rect.left,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
+                self.reproducir_sonido()
         if evento.type == pygame.KEYUP:
             if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                 self.frenar()
@@ -87,3 +89,9 @@ class Jugador(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
+    
+    def reproducir_sonido(self):
+        disparo = pygame.mixer.Sound('./Sounds/shoot.wav')
+        pygame.mixer.init()
+        disparo.play()
+
