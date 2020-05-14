@@ -18,6 +18,8 @@ if __name__ == "__main__":
     niveles = [True,True,True,True,True]
     en_juego = [True]
 
+    music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
+
     jugadores = pygame.sprite.Group()
     enemigos = pygame.sprite.Group()
     balas_enemigos = pygame.sprite.Group()
@@ -38,9 +40,12 @@ if __name__ == "__main__":
 
     while (en_juego[0]):
         #Pantalla de inicio
+        music_intro.play(-1)
         while (niveles[0] and en_juego[0]):
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,0,en_juego)
+            if (not niveles[0]):
+                music_intro.stop()
             ventana.blit(PantInit, [0,0])
             SoundPantInit.play()
             ventana.blit(LogoPantInit, [180,90])
