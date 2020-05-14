@@ -10,15 +10,13 @@ from models.asteroide1 import Asteroide1
 from models import utilidades
 
 if __name__ == "__main__":
-    pygame.init() 
+    pygame.init()
     pygame.mixer.init() #Inicia el mezclador de música
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
     jugador = Jugador([340,400])
     niveles = [True,True,True,True,True]
     en_juego = [True]
-
-    music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
 
     jugadores = pygame.sprite.Group()
     enemigos = pygame.sprite.Group()
@@ -27,10 +25,11 @@ if __name__ == "__main__":
     asteroides = pygame.sprite.Group()
     jugadores.add(jugador)
 
+    music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
+
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
     sabana_game_over = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
-    SoundPantInit = pygame.mixer.Sound('./Sounds/BravePilots.ogg')
     GameOver = utilidades.recorte_imagen(sabana_game_over,[765,1000],2)
     estado = 0
     cargar = GameOver[estado]
@@ -40,20 +39,20 @@ if __name__ == "__main__":
 
     while (en_juego[0]):
         #Pantalla de inicio
+        music_intro.set_volume(0.1) #float, valores entre 0 y 1
         music_intro.play(-1)
+
         while (niveles[0] and en_juego[0]):
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,0,en_juego)
             if (not niveles[0]):
                 music_intro.stop()
             ventana.blit(PantInit, [0,0])
-            SoundPantInit.play()
             ventana.blit(LogoPantInit, [180,90])
             pygame.display.flip()
 
         #Nivel 1
         while (niveles[1] and en_juego[0]):
-            SoundPantInit.stop()
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,1,en_juego)
                 jugador.controles(evento,balas_jugador)
