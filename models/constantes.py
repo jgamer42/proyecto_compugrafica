@@ -1,7 +1,7 @@
 #cambios
-#1. añadadida la variable numero_fps indica la velocidad del reloj 
+#1. añadadida la variable numero_fps indica la velocidad del reloj
 ANCHO = 768
-ALTO = 500
+ALTO = 690
 ZONA_JUEGO = 300
 VELOCIDAD_ENTORNO = 5
 NUMERO_FPS = 20

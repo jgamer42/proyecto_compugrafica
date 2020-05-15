@@ -10,7 +10,7 @@ from models.asteroide1 import Asteroide1
 from models.misil import Misil
 from models import utilidades
 
-#CAMBIOS 
+#CAMBIOS
 #1. se rediseño el sistema de disparo del enemigo (ver ambiente.py y enemigo1.py)
 #2. se agrego el primer prototipo de sistema de colision (ver ambiente.py)
 #3. se ordeno un poco los cambios previos de la musica
@@ -18,8 +18,7 @@ from models import utilidades
 #5. se agrego la forma de limpieza de asterorides (ver ambiente.py proteger_memoria)
 if __name__ == "__main__":
     pygame.init()
-
-    pygame.mixer.init() #Inicia el mezclador de música
+    pygame.mixer.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
     jugador = Jugador([340,400])
@@ -39,7 +38,7 @@ if __name__ == "__main__":
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
     sabana_game_over = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
-    GameOver = utilidades.recorte_imagen(sabana_game_over,[765,1000],2)
+    GameOver = utilidades.recorte_imagen(sabana_game_over,[768,690],2)
     estado = [0]
     cargar = GameOver[estado[0]]
 
@@ -48,18 +47,16 @@ if __name__ == "__main__":
 
     while (en_juego[0]):
         #Pantalla de inicio
-        music_intro.set_volume(0.3) #float, valores entre 0 y 1
+        music_intro.set_volume(0.3)
         music_intro.play(-1)
-
         while (niveles[0] and en_juego[0]):
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,0,en_juego)
             ventana.blit(PantInit, [0,0])
             ventana.blit(LogoPantInit, [180,90])
             pygame.display.flip()
-
         music_intro.stop()
-        
+
         #Nivel 1
         while (niveles[1] and en_juego[0]):
             for evento in pygame.event.get():
@@ -106,3 +103,4 @@ if __name__ == "__main__":
             ventana.fill(constantes.NEGRO)
             ventana.blit(cargar, [0,0])
             pygame.display.flip()
+        music_out.stop()
