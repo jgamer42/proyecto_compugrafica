@@ -3,6 +3,7 @@ from models import constantes
 from models.misil import Misil
 
 alarma_disparo_enemigo1 = False
+alarma_colision_muro = True
 origen_disparo_enemigo =None
 
 def ciclo_de_juego(ventana,elementos,reloj,color):
@@ -59,7 +60,5 @@ def gestionar_disparo_enemigo(balas_enemigos):
 def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
-        for colsion in colisiones:
-            pass
-            #esto es para debug
-            #print("colision ",type(colsion))
+        for colision in colisiones:
+            print("colision")

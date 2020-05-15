@@ -9,6 +9,7 @@ class Enemigo2(Enemigo_base):
         self.posy_inicial = pos[1]
         self.image.fill(constantes.NARANJA)
         self.agresividad = agresividad
+        self.type = "enemigo2"
     
     def atacar(self):
         ataque=None
@@ -21,7 +22,7 @@ class Enemigo2(Enemigo_base):
         
     def comportamiento_limites(self):
         if(self.atacando):
-            if(self.rect.y > constantes.ZONA_JUEGO) and(self.vely >0):
+            if(self.rect.y > constantes.ALTO) and(self.vely >0):
                 self.vely = -1*self.vely
             if(self.rect.y == self.posy_inicial) and (self.vely < 0):
                 self.vely = 0

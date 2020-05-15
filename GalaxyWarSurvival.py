@@ -3,19 +3,15 @@ import random
 
 from models import ambiente
 from models import constantes
+from models import utilidades
 from models.jugador import Jugador
 from models.enemigo1 import Enemigo1
 from models.enemigo2 import Enemigo2
 from models.asteroide1 import Asteroide1
 from models.misil import Misil
-from models import utilidades
+from models.muro import Muro
 
-#CAMBIOS
-#1. se rediseño el sistema de disparo del enemigo (ver ambiente.py y enemigo1.py)
-#2. se agrego el primer prototipo de sistema de colision (ver ambiente.py)
-#3. se ordeno un poco los cambios previos de la musica
-#4. se agrego el atributo typer a los misiles y al asteroide (ver clases respectivas)
-#5. se agrego la forma de limpieza de asterorides (ver ambiente.py proteger_memoria)
+
 if __name__ == "__main__":
     pygame.init()
     pygame.mixer.init()
@@ -30,10 +26,11 @@ if __name__ == "__main__":
     balas_enemigos = pygame.sprite.Group()
     balas_jugador = pygame.sprite.Group()
     asteroides = pygame.sprite.Group()
+    muros = pygame.sprite.Group()
     jugadores.add(jugador)
-
+    muro = Muro([100,100])
+    muros.add(muro)
     music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
-
     music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
@@ -65,7 +62,7 @@ if __name__ == "__main__":
             ambiente.gestionar_disparo_enemigo(balas_enemigos)
             elementos_colisionables = [balas_enemigos,enemigos,asteroides]
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
-            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides,enemigos]
+            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides,enemigos,muros]
             elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.BLANCO)
