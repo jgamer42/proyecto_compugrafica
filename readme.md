@@ -1,16 +1,18 @@
 # Galaxy War survival
 
+![logo del juego](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/fondos/LogoPantInit.png)
+
 ## REQUERIMIENTOS
 
-* [ ] intro :sunglasses:
+* [x] intro :sunglasses:
 
-* [ ] final :sunglasses:
+* [x] final :sunglasses:
 
-* [ ] imagenes de fondo y musica :headphones:
+* [x] imagenes de fondo y musica :headphones:
 
 * [ ] barra de información (gui) :eye:
 
-* [ ] implementar 2 enemigos diferentes :space_invader: 
+* [x] implementar 2 enemigos diferentes :space_invader: 
 
 * [ ] implementar 2 elementos ambientales :seedling:
 
@@ -18,12 +20,12 @@
 
 * [ ] implementar modificadores :dizzy:
 
-* [ ] implementar como minimo 3 niveles (nota cada nivel con el triple de tamaño de la pantalla)
+* [x] implementar como minimo 3 niveles (nota cada nivel con el triple de tamaño de la pantalla)
 
 ## ELEMENTOS DE JUEGO
 
 ### Jugador
-![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/PlayerShipSprite_I.png)
+![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/jugador/PlayerShipSprite_I.png)
 #### atributos
 
 * vida/ salud = ??
@@ -38,13 +40,7 @@
 
 #### detalles tecnicos
   * frames de animacion = 3
-  * estados posibles = ??
-
-#### anexos
-
-* #### maquina de estados
-
-* #### sprites de cada estados
+  * estados posibles = 3
 
 ---
 
@@ -52,11 +48,13 @@
 
 #### tipo 1 (nombre)
 
+![enemigo basico](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/enemigos/SpriteEnemyShip_I.png)
+
 * ##### Atributos
 
-  * vida = cuanta vida tienen
-  * daño = tipo de bala disparado
-  * velocidad = 20 px
+  * vida = ??
+  * daño = misil 1
+  * velocidad = 5 px
 
 * ##### comportamiento
 
@@ -68,8 +66,8 @@
 * ##### Atributos
 
   * vida = cuanta vida tienen
-  * daño = tipo de bala disparado
-  * velocidad = 20 px
+  * daño = 
+  * velocidad = 5 px
 
 * ##### comportamiento
   
@@ -82,9 +80,9 @@
 
 ### Balas
 
-#### tipo 1 (nombre)
+#### Misil
  
- ![balas tipo1](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/SpritePlayerMisil_I.png)
+ ![balas tipo1](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/balas/SpritePlayerMisil_I.png)
 
 * ##### Atributos
 
@@ -103,60 +101,40 @@
   * velocidad = 50 px
 
 * ##### comportamiento
- 
-
-#### tipo 3 (nombre)
-
-* ##### Atributos
-
-  * daño = tipo de bala disparado
-  * velocidad = 50 px
-
-* ##### comportamiento
 
 
 -----
 
 ### spawner
 
-  * #### atributos
-    * vida = (si puede morir)
-    * que enemigos spawnea
-
-  * #### comportamiento 
-    * proceso de spawn de elementos
 ----
 
 ### bloques
 
-#### tipo 1 (nombre)
+#### asteroide
+ 
+![asteoride](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/bloques/Asteroid.png)
 
   * caracteristicas
-    * efectos
-    * aparicion
-
-#### tipo 2 (nombre )
-  *  caracteristicas
-    * efectos
-    * aparicion
-
+    * genera daño con la colision
+    * aparece por fuera de la pantalla y de desplaza acorde a la velocidad del entorno
 ----
 
 ### modificadores
 
-#### tipo 1 (nombre)
-  * sprite
-  * aparicion
-  * efectos
-
-
 ## MECANICAS
 
-* ### desplazamiento del escenario
+* ### escenario
+
+  * El escenario posee varios elementos ambientales
+  * se desplaza a una velocidad de 20 px
 
 * ### condicion victoria
 
+  * superar el ultimo nivel
+
 * ### condicion fin de juego
+  * que el jugadro se quede sin vidas
 
 * ### condicion cambio de nivel
 
