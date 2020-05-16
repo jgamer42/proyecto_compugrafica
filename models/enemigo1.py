@@ -3,16 +3,14 @@ import random
 from .enemigo_base import Enemigo_base
 from . import utilidades as util
 from . import ambiente
-#cambios
-#1. se encapsulo el metodo animar en el paquete de utilidades
-# ver nueva logica de animacion en el update
+
 class Enemigo1(Enemigo_base):
     def __init__(self,pos,direccion,agresividad):
         super().__init__(pos,direccion,agresividad)
         self.frame = 0
         sabana = pygame.image.load("./Sprites/enemigos/SpriteEnemyShip_I.png")
         self.animacion = util.recorte_imagen(sabana,[87,75],3,2)
-        self.dir = 0
+        self.fila_animacion = 0
         self.image =  self.animacion[self.dir][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
@@ -29,13 +27,14 @@ class Enemigo1(Enemigo_base):
 
     def update(self):
         self.atacar()
-        self.animar()
         super().update()
-
-    def animar(self):
         self.frame = util.animar(self.frame,3)
-        if self.velx > 0:
-            self.dir = 0
-        elif self.velx < 0:
-            self.dir = 1
-        self.image = self.animacion[self.dir][self.frame]
+        self.cambio_animacion()
+        self.image = self.animacion[self.fila_animacion][self.frame]
+
+    def cambio_animacion(self):
+        self.frame = util.animar(self.frame,3)
+        if self.direccion > 0:
+            self.fila_animacion = 0
+        elif self.direccion < 0:
+            self.fila_animacion = 1

@@ -4,27 +4,19 @@ from .enemigo1 import Enemigo1
 from .asteroide1 import Asteroide1
 
 def recorte_imagen(sabana,size,frames,filas=1):
-    '''
-    sabana: imagen completa
-    size: tamaño del que desea el cuadrado
-    frames: cantidad de columnas
-    filas: cantidad de filas, si no es una matriz no requiere valor
-    '''
     animacion = []
-    animacion2 = []
     if filas == 1:
         for c in range(frames):
             cuadro = sabana.subsurface(size[0]*c,0,size[0],size[1])
             animacion.append(cuadro)
-        return animacion
     elif filas > 1:
-        filas -= 1
         for f in range(filas):
+            fila=[]
             for c in range(frames):
                 cuadro = sabana.subsurface(size[0]*c,size[1]*f,size[0],size[1])
-                animacion.append(cuadro)
-            animacion2.append(animacion)
-        return animacion2
+                fila.append(cuadro)
+            animacion.append(fila)
+    return animacion
 
 def animar(frame_actual,numero_frames):
         if frame_actual < (numero_frames - 1):
