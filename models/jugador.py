@@ -4,7 +4,6 @@ from . import constantes
 from .misil import Misil
 
 class Jugador(pygame.sprite.Sprite):
-
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
         self.animaciones = []
@@ -89,9 +88,8 @@ class Jugador(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
-    
+
     def reproducir_sonido(self):
         disparo = pygame.mixer.Sound('./Sounds/shoot.wav')
         pygame.mixer.init()
         disparo.play()
-
