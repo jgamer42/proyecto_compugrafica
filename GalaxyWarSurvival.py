@@ -90,7 +90,7 @@ if __name__ == "__main__":
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA)
 
         #fin de juego
-        music_out.set_volume(0.3)
+        music_out.set_volume(0.4)
         music_out.play(-1)
         niveles[4] = True
         while (niveles[4] and en_juego[0]):

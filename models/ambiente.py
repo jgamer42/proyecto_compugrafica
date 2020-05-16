@@ -1,16 +1,22 @@
 import pygame
 from models import constantes
 from models.misil import Misil
+from . import jugador
 
 alarma_disparo_enemigo1 = False
 alarma_colision_muro = True
 origen_disparo_enemigo =None
+
+#necesitamos saber el tipo de colision que esta sucediendo para asi saber que tanta salud le quitamos al jugador
+
+ambiente = pygame.image.load("./Sprites/ambiente/Ambiente.png")
 
 def ciclo_de_juego(ventana,elementos,reloj,color):
     ventana.fill(color)
     for elemento in elementos:
         elemento.draw(ventana)
         elemento.update()
+    ventana.blit(ambiente,[0,0])
     pygame.display.flip()
     reloj.tick(constantes.NUMERO_FPS)
 
@@ -49,7 +55,7 @@ def controles(evento,niveles,estado,nivel,en_juego):
                 niveles[nivel]=False
     if evento.type == pygame.QUIT:
         en_juego[0] = False
-    
+
 def gestionar_disparo_enemigo(balas_enemigos):
     global alarma_disparo_enemigo1
     if(alarma_disparo_enemigo1 == True):
@@ -61,4 +67,6 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
-            print("colision")
+            if (colision.type == "asteroide"):
+                 jugador.salud = 0
+                 jugador.vidas -= 1

@@ -2,7 +2,6 @@ import pygame
 from .bloque_base import Bloque_base
 from . import constantes
 
-
 class Asteroide1(Bloque_base):
     def __init__(self,pos):
         super().__init__(pos)

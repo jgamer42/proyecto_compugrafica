@@ -11,11 +11,12 @@ class Enemigo1(Enemigo_base):
         sabana = pygame.image.load("./Sprites/enemigos/SpriteEnemyShip_I.png")
         self.animacion = util.recorte_imagen(sabana,[87,75],3,2)
         self.fila_animacion = 0
-        self.image =  self.animacion[self.dir][self.frame]
+        self.image =  self.animacion[self.fila_animacion][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.atacando = False
+        self.type = "shipEnemy1"
 
     def atacar(self):
         ataque = None
