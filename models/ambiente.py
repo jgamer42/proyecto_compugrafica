@@ -10,8 +10,10 @@ alarma_colision_muro = True
 alarma_gameover = False
 origen_disparo_enemigo =None
 
-#necesitamos saber el tipo de colision que esta sucediendo para asi saber que tanta salud le quitamos al jugador
+pygame.mixer.init()
+boom = pygame.mixer.Sound("./Sounds/boom.wav")
 
+fondo = pygame.image.load("./Sprites/Background.png")
 ambiente = pygame.image.load("./Sprites/Gui/Ambiente.png")
 vidas = pygame.image.load("./Sprites/Gui/SpriteVidas.png")
 sabana_salud = pygame.image.load("./Sprites/Gui/SpriteSalud.png")
@@ -29,6 +31,7 @@ def ciclo_de_juego(ventana,elementos,reloj,color,niveles):
         niveles[4] = True
     else:
         ventana.fill(color)
+        ventana.blit(fondo,[0,0])
         for elemento in elementos:
             elemento.draw(ventana)
             elemento.update()
@@ -92,4 +95,5 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
             if (colision.type == "asteroide"):
+                boom.play()
                 jugador.salud = jugador.salud - colision.daño

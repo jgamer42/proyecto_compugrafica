@@ -18,8 +18,8 @@ from models.muro import Muro
 #*PENDIENTE
 #1. hacer el cambio de sprite cada que se pierde vida
 #2. hacer el cambio de sprite cada que se pierde durabilidad*
-#NOTA: en este momento el jugador solo tiene una vida y 
-# 50 de durabilidad, esto con el fin de hacer pruebas , 
+#NOTA: en este momento el jugador solo tiene una vida y
+# 50 de durabilidad, esto con el fin de hacer pruebas ,
 # si cambian los valores funciona correctamene
 
 if __name__ == "__main__":
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     while (en_juego[0]):
         #Pantalla de inicio
-        music_intro.set_volume(0.3)
+        music_intro.set_volume(0.4)
         music_intro.play(-1)
         while (niveles[0] and en_juego[0]):
             for evento in pygame.event.get():
