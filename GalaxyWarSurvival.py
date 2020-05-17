@@ -17,7 +17,7 @@ if __name__ == "__main__":
     pygame.mixer.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
-    jugador = Jugador([340,400])
+    jugador = Jugador([340,620])
     niveles = [True,True,True,True,True]
     en_juego = [True]
 
