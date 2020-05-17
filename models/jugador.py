@@ -25,7 +25,7 @@ class Jugador(pygame.sprite.Sprite):
         self.animaciones.append(util.recorte_imagen(sabana1,[90,67],3))
         self.animaciones.append(util.recorte_imagen(sabana2,[80,85],3))
         self.animaciones.append(util.recorte_imagen(sabana3,[120,90],3))
-        self.explosion = util.recorte_imagen(sabana_explosion,[256,200],4,3)
+        self.explosion = util.recorte_explosion(sabana_explosion,[256,200],4,3)
         self.image = self.animaciones[self.estado][self.frame]
         self.rect = self.image.get_rect()
         self.velx = 0
@@ -36,8 +36,8 @@ class Jugador(pygame.sprite.Sprite):
     def update(self):
         if self.salud <= 0:
             self.frenar()
-            self.frame = util.animar(self.frame,4)
-            self.image = self.explosion[self.estado][self.frame]
+            self.frame = util.animar(self.frame,9)
+            self.image = self.explosion[self.frame]
         else:
             self.frame = util.animar(self.frame,3)
             self.image = self.animaciones[self.estado][self.frame]
@@ -108,6 +108,4 @@ class Jugador(pygame.sprite.Sprite):
 
     def reproducir_sonido(self):
         disparo = pygame.mixer.Sound('./Sounds/shoot.wav')
-        #pygame.mixer.init()
         disparo.play()
-        #pygame.mixer.quit() # se agrega para limpiar memoria

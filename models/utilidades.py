@@ -3,6 +3,14 @@ from .enemigo2 import Enemigo2
 from .enemigo1 import Enemigo1
 from .asteroide1 import Asteroide1
 
+def recorte_explosion(sabana,size,frames,filas):
+    animacion = []
+    for f in range(filas):
+        for c in range(frames):
+            cuadro = sabana.subsurface(size[0]*c,size[1]*f,size[0],size[1])
+            animacion.append(cuadro)
+    return animacion
+
 def recorte_imagen(sabana,size,frames,filas=1):
     animacion = []
     if filas == 1:
