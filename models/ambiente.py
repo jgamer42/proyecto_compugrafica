@@ -68,5 +68,5 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
             if (colision.type == "asteroide"):
-                 jugador.salud = 0
-                 jugador.vidas -= 1
+                jugador.salud = 0
+                jugador.vidas -= 1
