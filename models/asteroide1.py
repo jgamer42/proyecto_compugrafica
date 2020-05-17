@@ -12,6 +12,7 @@ class Asteroide1(Bloque_base):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.type = "asteroide"
+        self.daño = 50
 
     def update(self):
         self.rect.y = self.rect.y + self.vely

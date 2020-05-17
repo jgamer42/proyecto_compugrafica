@@ -16,7 +16,7 @@ class Enemigo1(Enemigo_base):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.atacando = False
-        self.type = "shipEnemy1"
+        self.type = "enemigo1"
 
     def atacar(self):
         ataque = None
