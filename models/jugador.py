@@ -1,6 +1,6 @@
 import pygame
 from . import utilidades as util
-from . import ambiente 
+from . import ambiente
 from . import constantes
 from .misil import Misil
 
@@ -9,8 +9,8 @@ class Jugador(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.animaciones = []
         self.explosion =[]
-        self.vidas = 1
-        self.salud = 5
+        self.vidas = 2
+        self.salud = 1000
         self.estado = 0
         self.frame = 0
         self.pos_inicial = pos
@@ -107,7 +107,7 @@ class Jugador(pygame.sprite.Sprite):
     def reproducir_sonido(self):
         disparo = pygame.mixer.Sound('./Sounds/shoot.wav')
         disparo.play()
-    
+
     def animacion_muerte(self):
         if(self.estado == 3):
             if(self.frame == 2 and self.repeticiones == 3):
@@ -115,7 +115,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.vidas = self.vidas - 1
             elif(self.frame == 2):
                 self.repeticiones = self.repeticiones + 1
-    
+
     def reiniciar(self):
         self.salud = 50
         self.estado = 0
@@ -124,7 +124,7 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.y = self.pos_inicial[1]
         self.velx = 0
         self.vely = 0
-    
+
     def jugador_en_juego(self):
         if(self.vidas > 0):
             pass

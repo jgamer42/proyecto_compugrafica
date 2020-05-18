@@ -1,7 +1,7 @@
 import pygame
-from models import constantes
+
+from . import constantes
 from models.misil import Misil
-from . import jugador
 from . import utilidades as util
 
 
@@ -13,14 +13,16 @@ origen_disparo_enemigo =None
 pygame.mixer.init()
 boom = pygame.mixer.Sound("./Sounds/boom.wav")
 
+
 fondo = pygame.image.load("./Sprites/Background.png")
 ambiente = pygame.image.load("./Sprites/Gui/Ambiente.png")
-vidas = pygame.image.load("./Sprites/Gui/SpriteVidas.png")
+sabana_vidas = pygame.image.load("./Sprites/Gui/SpriteVidas.png")
 sabana_salud = pygame.image.load("./Sprites/Gui/SpriteSalud.png")
-salud = util.recorte_imagen(sabana_salud,[80,30],4)
+sprite_salud = util.recorte_imagen(sabana_salud,[80,30],6)
+sprite_vidas = util.recorte_imagen(sabana_vidas,[116,30],3)
 
 
-def ciclo_de_juego(ventana,elementos,reloj,color,niveles):
+def ciclo_de_juego(ventana,elementos,reloj,color,niveles,jugador):
     global alarma_gameover
     if(alarma_gameover):
         print("entro")
@@ -35,15 +37,34 @@ def ciclo_de_juego(ventana,elementos,reloj,color,niveles):
         for elemento in elementos:
             elemento.draw(ventana)
             elemento.update()
-        cargar_gui(ventana)
+        cargar_gui(ventana,jugador,niveles)
         pygame.display.flip()
         reloj.tick(constantes.NUMERO_FPS)
 
-def cargar_gui(ventana):
+def cargar_gui(ventana,jugador,niveles):
     ventana.blit(ambiente,[0,0])
-    ventana.blit(vidas,[500,0])
-    ventana.blit(salud[0],[655,0])
-
+    if jugador.vidas == 0:
+        alarma_gameover = True
+        ventana.blit(sprite_salud[5],[500,0])
+    elif jugador.salud <= 0:
+        jugador.vidas -= 1
+        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        jugador.salud = 1000
+    elif ((jugador.salud > 0) and (jugador.salud < 430)):
+        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        ventana.blit(sprite_salud[4],[655,0])
+    elif ((jugador.salud >= 430) and (jugador.salud < 472)):
+        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        ventana.blit(sprite_salud[3],[655,0])
+    elif ((jugador.salud >= 472) and (jugador.salud < 715)):
+        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        ventana.blit(sprite_salud[2],[655,0])
+    elif ((jugador.salud >= 715) and (jugador.salud < 850)):
+        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        ventana.blit(sprite_salud[1],[655,0])
+    elif ((jugador.salud >= 850) and (jugador.salud <= 1000)):
+        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        ventana.blit(sprite_salud[0],[655,0])
 
 def protector_memoria(elementos):
     for elemento in elementos:
