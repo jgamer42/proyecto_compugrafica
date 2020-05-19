@@ -43,6 +43,7 @@ if __name__ == "__main__":
     muros.add(muro)
 
     music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
+    music_juego = pygame.mixer.Sound('./Sounds/Juego.ogg')
     music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
     LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
@@ -62,11 +63,13 @@ if __name__ == "__main__":
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,0,en_juego)
             ventana.blit(PantInit, [0,0])
-            ventana.blit(LogoPantInit, [180,90])
+            ventana.blit(LogoPantInit, [130,150])
             pygame.display.flip()
         music_intro.stop()
 
         #Nivel 1
+        music_juego.set_volume(0.5)
+        music_juego.play(-1)
         while (niveles[1] and en_juego[0]):
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,1,en_juego)
@@ -78,6 +81,7 @@ if __name__ == "__main__":
             elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,niveles,jugador)
+        music_juego.play()
 
         #fin de juego
         music_out.set_volume(0.4)

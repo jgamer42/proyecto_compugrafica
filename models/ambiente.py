@@ -122,3 +122,5 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
                 jugador.salud -= colision.daño
             elif colision.type == "misil":
                 jugador.salud -= colision.daño
+
+#def gestionar_colision_enemigo(enemigo_base, )
