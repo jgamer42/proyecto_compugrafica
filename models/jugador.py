@@ -11,6 +11,7 @@ class Jugador(pygame.sprite.Sprite):
         self.explosion =[]
         self.vidas = 3
         self.salud = 1000
+        self.puntos = 0
         self.estado = 0
         self.frame = 0
         self.pos_inicial = pos
