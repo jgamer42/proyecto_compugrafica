@@ -28,7 +28,8 @@
 ![imagen jugador](https://raw.githubusercontent.com/jgamer42/proyecto_compugrafica/master/Sprites/jugador/PlayerShipSprite_I.png)
 #### atributos
 
-* vida/ salud = ??
+* vidas = 3
+* salud = 1000
 * daño = Varia segund el bala (ver tipos de balas)
 * velocidad = 5 px
 #### comportamiento
@@ -66,7 +67,7 @@
 * ##### Atributos
 
   * vida = cuanta vida tienen
-  * daño = 
+  * daño = 700
   * velocidad = 5 px
 
 * ##### comportamiento
@@ -86,7 +87,7 @@
 
 * ##### Atributos
 
-  * daño = ???
+  * daño = 130
   * velocidad = 50 px
 
 * ##### comportamiento
@@ -96,10 +97,6 @@
 #### tipo 2 (nombre)
 
 * ##### Atributos
-
-  * daño = 20 puntos
-  * velocidad = 50 px
-
 * ##### comportamiento
 
 
@@ -142,12 +139,5 @@
 
 * ### gui
 
-### niveles
-
-* #### nivel 1
-
-* ### nivel 2
-
-* ### nivel 3
 
 
