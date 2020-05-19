@@ -9,7 +9,7 @@ class Jugador(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.animaciones = []
         self.explosion =[]
-        self.vidas = 2
+        self.vidas = 3
         self.salud = 1000
         self.estado = 0
         self.frame = 0
@@ -42,6 +42,7 @@ class Jugador(pygame.sprite.Sprite):
 
     def evaluar_vida(self):
         if self.salud <= 0:
+            self.reproducir_sonido('./Sounds/boom.wav')
             self.frenar()
             self.estado = 3
 
@@ -79,7 +80,7 @@ class Jugador(pygame.sprite.Sprite):
             if(evento.key == pygame.K_d):
                 origen_disparo = [self.rect.right-20,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
-                self.reproducir_sonido()
+                self.sonido_disparo('./Sounds/shoot.wav')
             if(evento.key == pygame.K_a):
                 origen_disparo = [self.rect.left,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
@@ -104,8 +105,8 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.x = pos_x
         self.rect.y = pos_y
 
-    def reproducir_sonido(self):
-        disparo = pygame.mixer.Sound('./Sounds/shoot.wav')
+    def reproducir_sonido(self,direccion):
+        disparo = pygame.mixer.Sound(direccion)
         disparo.play()
 
     def animacion_muerte(self):
@@ -126,7 +127,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely = 0
 
     def jugador_en_juego(self):
-        if(self.vidas >= 0):
+        if(self.vidas > 0):
             pass
         else:
             ambiente.alarma_gameover = True

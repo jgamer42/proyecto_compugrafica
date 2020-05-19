@@ -77,7 +77,7 @@ if __name__ == "__main__":
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides,enemigos,muros]
             elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
             ambiente.protector_memoria(elementos_borrar)
-            ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.BLANCO,niveles,jugador)
+            ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,niveles,jugador)
 
         #fin de juego
         music_out.set_volume(0.4)

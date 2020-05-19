@@ -11,9 +11,10 @@ class Enemigo2(Enemigo_base):
         self.animacion = util.recorte_imagen(sabana,[73,121],3)
         self.image =  self.animacion[self.frame]
         self.rect = self.image.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
         self.atacando = False
         self.posy_inicial = pos[1]
-        #self.image.fill(constantes.NARANJA)
         self.agresividad = agresividad
         self.type = "enemigo2"
         self.daño = 700

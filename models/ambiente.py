@@ -9,7 +9,7 @@ alarma_disparo_enemigo1 = False
 alarma_colision_muro = True
 alarma_gameover = False
 origen_disparo_enemigo =None
-
+posy_fondo = -1380
 pygame.mixer.init()
 boom = pygame.mixer.Sound("./Sounds/boom.wav")
 
@@ -22,52 +22,53 @@ sprite_salud = util.recorte_imagen(sabana_salud,[80,30],6)
 sprite_vidas = util.recorte_imagen(sabana_vidas,[116,30],3)
 
 
-def ciclo_de_juego(ventana,elementos,reloj,color,niveles,jugador):
+def ciclo_de_juego(ventana,elementos,reloj,niveles,jugador):
     global alarma_gameover
+    condicion_derrota()
+    ventana.fill(constantes.NEGRO)
+    cargar_gui(ventana,jugador)
+    for elemento in elementos:
+        elemento.draw(ventana)
+        elemento.update()
+    pygame.display.flip()
+    reloj.tick(constantes.NUMERO_FPS)
+
+
+def condicion_derrota():
     if(alarma_gameover):
         print("entro")
         niveles[0] = False
         niveles[1] = False
         niveles[2] = True
-    else:
-        ventana.fill(color)
-        ventana.blit(fondo,[0,-1380])
-        for elemento in elementos:
-            elemento.draw(ventana)
-            elemento.update()
-        cargar_gui(ventana,jugador,niveles)
-        pygame.display.flip()
-        reloj.tick(constantes.NUMERO_FPS)
 
-def cargar_gui(ventana,jugador,niveles):
+def cargar_gui(ventana,jugador):
+    global posy_fondo
+    seleccionar_pos_fondo()
+    ventana.blit(fondo,[0,posy_fondo])
     ventana.blit(ambiente,[0,0])
-    if jugador.vidas == 0:
-        alarma_gameover = True
+    pos_sprite_salud = seleccionar_sprite_salud(jugador)
+    ventana.blit(sprite_salud[pos_sprite_salud],[constantes.ANCHO-80,0])
+    ventana.blit(sprite_vidas[jugador.vidas-1],[constantes.ANCHO-196,0])
 
-        ventana.blit(sprite_salud[5],[655,0])
-    elif jugador.salud <= 0:
-        print(jugador.vidas)
-        print(jugador.salud)
-        jugador.vidas -= 1
-        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
-        ventana.blit(sprite_salud[5],[655,0])
+def seleccionar_sprite_salud(jugador):
+    if(0 < jugador.salud < 430):
+        return(4)
+    elif(430 <= jugador.salud < 472):
+        return(3)
+    elif(472 <= jugador.salud < 715):
+        return(2)
+    elif(715 <= jugador.salud < 1000):
+        return(1)
+    else:
+        return(0) 
+        
+def seleccionar_pos_fondo():
+    global posy_fondo
+    if(posy_fondo == 0):
+        posy_fondo = -1380
+    else:
+        posy_fondo = posy_fondo + constantes.VELOCIDAD_ENTORNO
 
-        jugador.salud = 1000
-    elif ((jugador.salud > 0) and (jugador.salud < 430)):
-        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
-        ventana.blit(sprite_salud[4],[655,0])
-    elif ((jugador.salud >= 430) and (jugador.salud < 472)):
-        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
-        ventana.blit(sprite_salud[3],[655,0])
-    elif ((jugador.salud >= 472) and (jugador.salud < 715)):
-        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
-        ventana.blit(sprite_salud[2],[655,0])
-    elif ((jugador.salud >= 715) and (jugador.salud < 850)):
-        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
-        ventana.blit(sprite_salud[1],[655,0])
-    elif ((jugador.salud >= 850) and (jugador.salud <= 1000)):
-        ventana.blit(sprite_vidas[jugador.vidas],[500,0])
-        ventana.blit(sprite_salud[0],[655,0])
 
 def protector_memoria(elementos):
     for elemento in elementos:
