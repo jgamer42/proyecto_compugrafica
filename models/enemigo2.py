@@ -1,16 +1,23 @@
+import pygame
+from . import utilidades as util
 from .enemigo_base import Enemigo_base
 from . import constantes
 import random
 class Enemigo2(Enemigo_base):
     def __init__(self,pos,direccion,agresividad):
         super().__init__(pos,direccion,agresividad)
-        self.daño = 20
+        self.frame = 0
+        sabana = pygame.image.load("./Sprites/enemigos/SpriteEnemyBoomShip.png")
+        self.animacion = util.recorte_imagen(sabana,[73,121],3)
+        self.image =  self.animacion[self.frame]
+        self.rect = self.image.get_rect()
         self.atacando = False
         self.posy_inicial = pos[1]
-        self.image.fill(constantes.NARANJA)
+        #self.image.fill(constantes.NARANJA)
         self.agresividad = agresividad
         self.type = "enemigo2"
-    
+        self.daño = 700
+
     def atacar(self):
         ataque=None
         if not(self.atacando):
@@ -19,7 +26,7 @@ class Enemigo2(Enemigo_base):
             self.velx = 0
             self.vely = 60
             self.atacando = True
-        
+
     def comportamiento_limites(self):
         if(self.atacando):
             if(self.rect.y > constantes.ALTO) and(self.vely >0):
@@ -29,9 +36,7 @@ class Enemigo2(Enemigo_base):
                 self.velx = 20
                 self.atacando = False
         super().comportamiento_limites()
-    
+
     def update(self):
         self.atacar()
         super().update()
-
-

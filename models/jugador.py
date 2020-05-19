@@ -117,7 +117,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.repeticiones = self.repeticiones + 1
 
     def reiniciar(self):
-        self.salud = 50
+        self.salud = 1000
         self.estado = 0
         self.repeticiones = 0
         self.rect.x = self.pos_inicial[0]
@@ -126,7 +126,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely = 0
 
     def jugador_en_juego(self):
-        if(self.vidas > 0):
+        if(self.vidas >= 0):
             pass
         else:
             ambiente.alarma_gameover = True

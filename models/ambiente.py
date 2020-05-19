@@ -28,12 +28,10 @@ def ciclo_de_juego(ventana,elementos,reloj,color,niveles,jugador):
         print("entro")
         niveles[0] = False
         niveles[1] = False
-        niveles[2] = False
-        niveles[3] = False
-        niveles[4] = True
+        niveles[2] = True
     else:
         ventana.fill(color)
-        ventana.blit(fondo,[0,0])
+        ventana.blit(fondo,[0,-1380])
         for elemento in elementos:
             elemento.draw(ventana)
             elemento.update()
@@ -45,10 +43,15 @@ def cargar_gui(ventana,jugador,niveles):
     ventana.blit(ambiente,[0,0])
     if jugador.vidas == 0:
         alarma_gameover = True
-        ventana.blit(sprite_salud[5],[500,0])
+
+        ventana.blit(sprite_salud[5],[655,0])
     elif jugador.salud <= 0:
+        print(jugador.vidas)
+        print(jugador.salud)
         jugador.vidas -= 1
         ventana.blit(sprite_vidas[jugador.vidas],[500,0])
+        ventana.blit(sprite_salud[5],[655,0])
+
         jugador.salud = 1000
     elif ((jugador.salud > 0) and (jugador.salud < 430)):
         ventana.blit(sprite_vidas[jugador.vidas],[500,0])
@@ -86,14 +89,12 @@ def controles(evento,niveles,estado,nivel,en_juego,jugador=None):
             if (evento.key == pygame.K_SPACE):
                 if(estado[0] == 0):
                     en_juego[0] = False
-                    niveles[4] = False
+                    niveles[2] = False
                 elif(estado[0] == 1):
                     alarma_gameover = False
                     niveles[0] = True
                     niveles[1] = True
-                    niveles[2] = True
-                    niveles[3] = True
-                    niveles[4] = False
+                    niveles[2] = False
             if (evento.key == pygame.K_RIGHT):
                 estado[0] = 1
             if (evento.key == pygame.K_LEFT):
@@ -117,4 +118,6 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
         for colision in colisiones:
             if (colision.type == "asteroide"):
                 boom.play()
-                jugador.salud = jugador.salud - colision.daño
+                jugador.salud -= colision.daño
+            elif colision.type == "misil":
+                jugador.salud -= colision.daño

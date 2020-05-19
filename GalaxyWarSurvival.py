@@ -27,8 +27,8 @@ if __name__ == "__main__":
     pygame.mixer.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
     reloj = pygame.time.Clock()
-    jugador = Jugador(constantes.POS_INICIAL)
-    niveles = [True,True,True,True,True]
+    jugador = Jugador([340,620])
+    niveles = [True,True,True]
     en_juego = [True]
 
     jugadores = pygame.sprite.Group()
@@ -37,9 +37,11 @@ if __name__ == "__main__":
     balas_jugador = pygame.sprite.Group()
     asteroides = pygame.sprite.Group()
     muros = pygame.sprite.Group()
+
     jugadores.add(jugador)
     muro = Muro([100,100])
     muros.add(muro)
+
     music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
     music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
     PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
@@ -48,10 +50,11 @@ if __name__ == "__main__":
     GameOver = utilidades.recorte_imagen(sabana_game_over,[768,690],2)
     estado = [0]
     cargar = GameOver[estado[0]]
+    
     utilidades.generar_enemigos(enemigos)
     utilidades.generar_asteroides(asteroides)
 
-    while (en_juego[0]):
+    while en_juego[0]:
         #Pantalla de inicio
         music_intro.set_volume(0.4)
         music_intro.play(-1)
@@ -76,33 +79,11 @@ if __name__ == "__main__":
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.BLANCO,niveles,jugador)
 
-        #Nivel 2
-        while (niveles[2] and en_juego[0]):
-            for evento in pygame.event.get():
-                jugador.controles(evento,balas_jugador)
-                ambiente.controles(evento,niveles,estado,2,en_juego)
-            ambiente.gestionar_disparo_enemigo(balas_enemigos)
-            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides]
-            elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
-            ambiente.protector_memoria(elementos_borrar)
-            ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.AZUL,niveles)
-
-        #Nivel 3
-        while (niveles[3] and en_juego[0]):
-            for evento in pygame.event.get():
-                ambiente.controles(evento,niveles,estado,3,en_juego)
-                jugador.controles(evento,balas_jugador)
-            ambiente.gestionar_disparo_enemigo(balas_enemigos)
-            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides]
-            elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
-            ambiente.protector_memoria(elementos_borrar)
-            ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,constantes.NARANJA,niveles)
-
         #fin de juego
         music_out.set_volume(0.4)
         music_out.play(-1)
-        niveles[4] = True
-        while (niveles[4] and en_juego[0]):
+        niveles[2] = True
+        while (niveles[2] and en_juego[0]):
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,4,en_juego,jugador)
             cargar=GameOver[estado[0]]

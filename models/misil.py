@@ -22,8 +22,9 @@ class Misil(Bala_base):
         self.rect.x = pos_x
         self.rect.y = pos_y
         self.type = "misil"
+        self.daño = 130
 
     def update(self):
         super().update()
         self.frame = utilidades.animar(self.frame,3)
-        self.image = self.animacion[self.frame]   
+        self.image = self.animacion[self.frame]
