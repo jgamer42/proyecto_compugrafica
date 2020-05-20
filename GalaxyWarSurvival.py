@@ -34,8 +34,8 @@ if __name__ == "__main__":
     music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
     music_juego = pygame.mixer.Sound('./Sounds/Juego.ogg')
     music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
-    PantInit = pygame.image.load("./Sprites/fondos/UniversePantInit.png")
-    LogoPantInit = pygame.image.load("./Sprites/fondos/LogoPantInit.png")
+    PantInit = pygame.image.load("./Sprites/fondos/Universe2PantInit.png")
+    LogoPantInit = pygame.image.load("./Sprites/fondos/Logo2PantInit.png")
     sabana_game_over = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
     GameOver = utilidades.recorte_imagen(sabana_game_over,[768,690],2)
     estado = [0]
@@ -52,7 +52,7 @@ if __name__ == "__main__":
             for evento in pygame.event.get():
                 ambiente.controles(evento,niveles,estado,0,en_juego)
             ventana.blit(PantInit, [0,0])
-            ventana.blit(LogoPantInit, [130,150])
+            ventana.blit(LogoPantInit, [116,150])
             pygame.display.flip()
         music_intro.stop()
 
