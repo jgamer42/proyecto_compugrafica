@@ -12,7 +12,8 @@ class Asteroide1(Bloque_base):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.type = "asteroide"
-        self.daño = 1000
+        self.daño = 2500
+        self.salud = 1500
 
     def update(self):
         self.rect.y = self.rect.y + self.vely

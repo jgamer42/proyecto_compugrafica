@@ -60,8 +60,8 @@ def seleccionar_sprite_salud(jugador):
     elif(715 <= jugador.salud < 1000):
         return(1)
     else:
-        return(0) 
-        
+        return(0)
+
 def seleccionar_pos_fondo():
     global posy_fondo
     if(posy_fondo == 0):
@@ -123,4 +123,12 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
             elif colision.type == "misil":
                 jugador.salud -= colision.daño
 
-#def gestionar_colision_enemigo(enemigo_base, )
+def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables):
+    for bala in balas_jugador:
+        for lista_colisiones in lista_elementos_colisionables:
+            colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
+            for colision in colisiones:
+                if colision.type == "asteroide":
+                    print ("logrado")
+                    colision.salud -= 180
+                    print (colision.salud)

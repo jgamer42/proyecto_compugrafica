@@ -11,17 +11,6 @@ from models.asteroide1 import Asteroide1
 from models.misil import Misil
 from models.muro import Muro
 
-#*CAMBIOS
-#1. mecanica de morir terminada
-#2. conflicto arreglados
-#*
-#*PENDIENTE
-#1. hacer el cambio de sprite cada que se pierde vida
-#2. hacer el cambio de sprite cada que se pierde durabilidad*
-#NOTA: en este momento el jugador solo tiene una vida y
-# 50 de durabilidad, esto con el fin de hacer pruebas ,
-# si cambian los valores funciona correctamene
-
 if __name__ == "__main__":
     pygame.init()
     pygame.mixer.init()
@@ -51,7 +40,7 @@ if __name__ == "__main__":
     GameOver = utilidades.recorte_imagen(sabana_game_over,[768,690],2)
     estado = [0]
     cargar = GameOver[estado[0]]
-    
+
     utilidades.generar_enemigos(enemigos)
     utilidades.generar_asteroides(asteroides)
 
@@ -77,11 +66,14 @@ if __name__ == "__main__":
             ambiente.gestionar_disparo_enemigo(balas_enemigos)
             elementos_colisionables = [balas_enemigos,enemigos,asteroides]
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
+
+            ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables)
+
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides,enemigos,muros]
             elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,niveles,jugador)
-        music_juego.play()
+        music_juego.stop()
 
         #fin de juego
         music_out.set_volume(0.4)

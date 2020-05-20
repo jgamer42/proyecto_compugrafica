@@ -6,6 +6,10 @@ from . import ambiente
 class Muro(Bloque_base):
     def __init__(self,pos):
         super().__init__(pos)
+        self.image = pygame.image.load("./Sprites/enemigos/Satelite.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
         self.type = "muro"
         self.estado =True
 

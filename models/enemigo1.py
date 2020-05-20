@@ -17,6 +17,7 @@ class Enemigo1(Enemigo_base):
         self.rect.y = pos[1]
         self.atacando = False
         self.type = "enemigo1"
+        self.salud = 500
 
     def atacar(self):
         ataque = None
