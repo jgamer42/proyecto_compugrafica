@@ -116,6 +116,11 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables):
                     if(colision.salud <= 0):
                         lista_colisiones.remove(colision)
                 balas_jugador.remove(bala)
+                if colision.type == "enemigo2":
+                    colision.salud = colision.salud - bala.daño 
+                    if(colision.salud <= 0):
+                        lista_colisiones.remove(colision)
+                balas_jugador.remove(bala)
 
 def gestionar_elementos_ambientales(jugador,elementos_ambientales):
     for elemento in elementos_ambientales:
