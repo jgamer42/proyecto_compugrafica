@@ -8,7 +8,7 @@ class Asteroide1(Bloque_base):
         self.image = pygame.image.load("./Sprites/bloques/Asteroid.png")
         self.rect = self.image.get_rect()
         self.velx = 0
-        self.vely = constantes.VELOCIDAD_ENTORNO
+        self.vely = constantes.VELOCIDAD_ENTORNO + 20
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.type = "asteroide"

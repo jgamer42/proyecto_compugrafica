@@ -1,29 +1,16 @@
 import pygame
-
 from . import constantes
-from models.misil import Misil
+from models.misil_enemigo import Misil_enemigo
 from . import utilidades as util
+from . import variables
 
-
-alarma_disparo_enemigo1 = False
-alarma_colision_muro = True
+#alarmas
+alarma_disparo_enemigo = False
 alarma_gameover = False
-origen_disparo_enemigo =None
-posy_fondo = -1380
-pygame.mixer.init()
-boom = pygame.mixer.Sound("./Sounds/boom.wav")
+alarma_planeta = False
 
 
-fondo = pygame.image.load("./Sprites/Background.png")
-ambiente = pygame.image.load("./Sprites/Gui/Ambiente.png")
-sabana_vidas = pygame.image.load("./Sprites/Gui/SpriteVidas.png")
-sabana_salud = pygame.image.load("./Sprites/Gui/SpriteSalud.png")
-sprite_salud = util.recorte_imagen(sabana_salud,[80,30],6)
-sprite_vidas = util.recorte_imagen(sabana_vidas,[116,30],3)
-
-
-def ciclo_de_juego(ventana,elementos,reloj,niveles,jugador):
-    global alarma_gameover
+def ciclo_de_juego(ventana,elementos,jugador):
     condicion_derrota()
     ventana.fill(constantes.NEGRO)
     cargar_gui(ventana,jugador)
@@ -31,24 +18,22 @@ def ciclo_de_juego(ventana,elementos,reloj,niveles,jugador):
         elemento.draw(ventana)
         elemento.update()
     pygame.display.flip()
-    reloj.tick(constantes.NUMERO_FPS)
+    variables.reloj.tick(constantes.NUMERO_FPS)
 
 
 def condicion_derrota():
     if(alarma_gameover):
-        print("entro")
-        niveles[0] = False
-        niveles[1] = False
-        niveles[2] = True
+        variables.niveles[0] = False
+        variables.niveles[1] = False
+        variables.niveles[2] = True
 
 def cargar_gui(ventana,jugador):
-    global posy_fondo
     seleccionar_pos_fondo()
-    ventana.blit(fondo,[0,posy_fondo])
-    ventana.blit(ambiente,[0,0])
+    ventana.blit(variables.fondo,[0,variables.pos_fondo])
+    ventana.blit(variables.saba_puntos,[0,0])
     pos_sprite_salud = seleccionar_sprite_salud(jugador)
-    ventana.blit(sprite_salud[pos_sprite_salud],[constantes.ANCHO-80,0])
-    ventana.blit(sprite_vidas[jugador.vidas-1],[constantes.ANCHO-196,0])
+    ventana.blit(variables.sprite_salud[pos_sprite_salud],[constantes.ANCHO-80,0])
+    ventana.blit(variables.sprite_vidas[jugador.vidas-1],[constantes.ANCHO-196,0])
 
 def seleccionar_sprite_salud(jugador):
     if(0 < jugador.salud < 430):
@@ -63,34 +48,33 @@ def seleccionar_sprite_salud(jugador):
         return(0)
 
 def seleccionar_pos_fondo():
-    global posy_fondo
-    if(posy_fondo == 0):
-        posy_fondo = -1380
+    if(variables.pos_fondo == 0):
+        variables.pos_fondo = -1380
     else:
-        posy_fondo = posy_fondo + constantes.VELOCIDAD_ENTORNO
+        variables.pos_fondo = variables.pos_fondo + constantes.VELOCIDAD_ENTORNO
 
 
 def protector_memoria(elementos):
     for elemento in elementos:
         for e in elemento:
-            if(e.type == "asteroide"):
+            if(e.type == "asteroide" or e.type == "agujero" or e.type =="planeta" or e.type == "satelite"):
                 if(e.rect.y > constantes.ALTO):
                     elemento.remove(e)
-                    print("asteroide limpiado")
             else:
                 if(e.rect.bottom <= 0) or (e.rect.top > constantes.ALTO):
                     elemento.remove(e)
                 if(e.rect.x <= 0) or (e.rect.x > constantes.ANCHO):
                     elemento.remove(e)
 
-def controles(evento,niveles,estado,nivel,en_juego,jugador=None):
+def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
     global alarma_gameover
     if(evento.type == pygame.KEYDOWN):
-        if (nivel==4):
+        if (nivel==2):
             if (evento.key == pygame.K_SPACE):
                 if(estado[0] == 0):
                     en_juego[0] = False
                     niveles[2] = False
+                    print(nivel,en_juego,estado)
                 elif(estado[0] == 1):
                     alarma_gameover = False
                     niveles[0] = True
@@ -107,18 +91,17 @@ def controles(evento,niveles,estado,nivel,en_juego,jugador=None):
         en_juego[0] = False
 
 def gestionar_disparo_enemigo(balas_enemigos):
-    global alarma_disparo_enemigo1
-    if(alarma_disparo_enemigo1 == True):
-        misil = Misil(origen_disparo_enemigo,1)
+    global alarma_disparo_enemigo
+    if(alarma_disparo_enemigo == True):
+        misil = Misil_enemigo(variables.origen_disparo_enemigo)
         balas_enemigos.add(misil)
-        alarma_disparo_enemigo1=False
+        alarma_disparo_enemigo=False
 
 def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
             if (colision.type == "asteroide"):
-                boom.play()
                 jugador.salud -= colision.daño
             elif colision.type == "misil":
                 jugador.salud -= colision.daño
@@ -128,7 +111,27 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables):
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
-                if colision.type == "asteroide":
-                    print ("logrado")
-                    colision.salud -= 180
-                    print (colision.salud)
+                if colision.type == "enemigo1":
+                    colision.salud = colision.salud - bala.daño 
+                    if(colision.salud <= 0):
+                        lista_colisiones.remove(colision)
+                balas_jugador.remove(bala)
+
+def gestionar_elementos_ambientales(jugador,elementos_ambientales):
+    for elemento in elementos_ambientales:
+        if(elemento.type == "agujero"):
+            logica_agujero_negro(elemento,jugador)
+        if(elemento.type == "planeta"):
+            logica_planeta(elemento)
+
+def logica_agujero_negro(elemento,jugador):
+    if(0 < elemento.rect.y < constantes.ALTO):
+        if(elemento.rect.top< jugador.rect.y < elemento.rect.bottom):
+            jugador.velx = 5*elemento.direccion
+
+def logica_planeta(elemento):
+    global alarma_planeta
+    if(0 < elemento.rect.y < constantes.ALTO):
+        alarma_planeta = True
+    else:
+        alarma_planeta = False

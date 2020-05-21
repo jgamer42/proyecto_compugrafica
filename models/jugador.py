@@ -78,11 +78,11 @@ class Jugador(pygame.sprite.Sprite):
                 self.velx = 0
             if(evento.key == pygame.K_s):
                 self.cambio_animacion()
-            if(evento.key == pygame.K_d):
+            if(evento.key == pygame.K_d and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.right-20,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
                 self.reproducir_sonido('./Sounds/shoot.wav')
-            if(evento.key == pygame.K_a):
+            if(evento.key == pygame.K_a and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.left,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
                 self.reproducir_sonido('./Sounds/shoot.wav')
@@ -95,7 +95,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vely=0
 
     def disparar(self,lista_balas,origen_disparo):
-        bala = Misil(origen_disparo,-1)
+        bala = Misil(origen_disparo)
         lista_balas.add(bala)
 
     def cambio_animacion(self):

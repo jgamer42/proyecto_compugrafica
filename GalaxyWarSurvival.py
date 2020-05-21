@@ -1,6 +1,5 @@
 import pygame
 import random
-
 from models import ambiente
 from models import constantes
 from models import utilidades
@@ -8,41 +7,40 @@ from models.jugador import Jugador
 from models.enemigo1 import Enemigo1
 from models.enemigo2 import Enemigo2
 from models.asteroide1 import Asteroide1
-from models.misil import Misil
-from models.muro import Muro
-
+from models.satelite import Satelite
+from models.agujero_negro import Agujero_negro
+from models.planeta import Planeta
+from models.variables import *
+#cambios LEEER
+#1.  para organizar un poco el codigo se llevaron casi todas las variables al paquete variables
+#2.  se agregaron los elementos ambientales a peticion del docente, ya tienen la logica del funcionamiento
+#3.  se termino la logica de destruir enemigos, por ahora solo funciona con enemigo 1, solo es cambiar el if para mas enemigos
+#4.  se hicieron cabmios menores en fin de juego numero que no coincidian y demas
+#5.  se creo la clase misil enemigo, esto con el fin de simplicar la clase misil
+#NOTA: 
+# el cambio 1 se puede revisar, si complica mas el codigo decir y se revierte
+# no poner el agujero fuera del ancho , es un "bug"
+# no poner el planeta fuera del ancho , es un "bug"
 if __name__ == "__main__":
     pygame.init()
     pygame.mixer.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
-    reloj = pygame.time.Clock()
+    
+    agujero = Agujero_negro([0,-100],constantes.DERECHA)
+    planeta = Planeta([50,-200])
     jugador = Jugador([340,620])
+    satelite = Satelite([100,100])
+
+    elementos_ambientales.add(agujero)
+    elementos_ambientales.add(planeta)
+    jugadores.add(jugador)
+    satelites.add(satelite)
+    utilidades.generar_enemigos(enemigos)
+    utilidades.generar_asteroides(enemigos)
+
     niveles = [True,True,True]
     en_juego = [True]
-
-    jugadores = pygame.sprite.Group()
-    enemigos = pygame.sprite.Group()
-    balas_enemigos = pygame.sprite.Group()
-    balas_jugador = pygame.sprite.Group()
-    asteroides = pygame.sprite.Group()
-    muros = pygame.sprite.Group()
-
-    jugadores.add(jugador)
-    muro = Muro([100,100])
-    muros.add(muro)
-
-    music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
-    music_juego = pygame.mixer.Sound('./Sounds/Juego.ogg')
-    music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
-    PantInit = pygame.image.load("./Sprites/fondos/Universe2PantInit.png")
-    LogoPantInit = pygame.image.load("./Sprites/fondos/Logo2PantInit.png")
-    sabana_game_over = pygame.image.load("./Sprites/fondos/SpriteGameOver.png")
-    GameOver = utilidades.recorte_imagen(sabana_game_over,[768,690],2)
     estado = [0]
-    cargar = GameOver[estado[0]]
-
-    utilidades.generar_enemigos(enemigos)
-    utilidades.generar_asteroides(asteroides)
 
     while en_juego[0]:
         #Pantalla de inicio
@@ -50,7 +48,7 @@ if __name__ == "__main__":
         music_intro.play(-1)
         while (niveles[0] and en_juego[0]):
             for evento in pygame.event.get():
-                ambiente.controles(evento,niveles,estado,0,en_juego)
+                ambiente.controles(evento,0,en_juego,niveles)
             ventana.blit(PantInit, [0,0])
             ventana.blit(LogoPantInit, [116,150])
             pygame.display.flip()
@@ -61,29 +59,28 @@ if __name__ == "__main__":
         music_juego.play(-1)
         while (niveles[1] and en_juego[0]):
             for evento in pygame.event.get():
-                ambiente.controles(evento,niveles,estado,1,en_juego)
+                ambiente.controles(evento,1,en_juego,niveles)
                 jugador.controles(evento,balas_jugador)
+            ambiente.gestionar_elementos_ambientales(jugador,elementos_ambientales)
             ambiente.gestionar_disparo_enemigo(balas_enemigos)
-            elementos_colisionables = [balas_enemigos,enemigos,asteroides]
+            elementos_colisionables = [balas_enemigos,enemigos]
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
-
             ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables)
-
-            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,asteroides,enemigos,muros]
-            elementos_borrar = [balas_enemigos,balas_jugador,asteroides]
+            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales]
+            elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites]
             ambiente.protector_memoria(elementos_borrar)
-            ambiente.ciclo_de_juego(ventana,elementos_dibujar,reloj,niveles,jugador)
+            ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador)
         music_juego.stop()
 
         #fin de juego
         music_out.set_volume(0.4)
         music_out.play(-1)
-        niveles[2] = True
         while (niveles[2] and en_juego[0]):
             for evento in pygame.event.get():
-                ambiente.controles(evento,niveles,estado,4,en_juego,jugador)
-            cargar=GameOver[estado[0]]
+                ambiente.controles(evento,2,en_juego,niveles,jugador,estado)
             ventana.fill(constantes.NEGRO)
+            cargar = GameOver[estado[0]]
             ventana.blit(cargar, [0,0])
             pygame.display.flip()
+            print(niveles[2],en_juego[0])
         music_out.stop()
