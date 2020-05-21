@@ -10,11 +10,11 @@
 
 * [x] imagenes de fondo y musica :headphones:
 
-* [ ] barra de información (gui) :eye:
+* [x] barra de información (gui) :eye:
 
 * [x] implementar 2 enemigos diferentes :space_invader: 
 
-* [ ] implementar 2 elementos ambientales :seedling:
+* [x] implementar 2 elementos ambientales :seedling:
 
 * [ ] implementar generadores de enemigos :anger:
 
