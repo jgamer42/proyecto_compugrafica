@@ -20,7 +20,6 @@ def ciclo_de_juego(ventana,elementos,jugador):
     pygame.display.flip()
     variables.reloj.tick(constantes.NUMERO_FPS)
 
-
 def condicion_derrota():
     if(alarma_gameover):
         variables.niveles[0] = False
@@ -34,6 +33,7 @@ def cargar_gui(ventana,jugador):
     pos_sprite_salud = seleccionar_sprite_salud(jugador)
     ventana.blit(variables.sprite_salud[pos_sprite_salud],[constantes.ANCHO-80,0])
     ventana.blit(variables.sprite_vidas[jugador.vidas-1],[constantes.ANCHO-196,0])
+    dibujar_puntos_jugador(ventana,jugador.puntos)
 
 def seleccionar_sprite_salud(jugador):
     if(0 < jugador.salud < 430):
@@ -49,10 +49,9 @@ def seleccionar_sprite_salud(jugador):
 
 def seleccionar_pos_fondo():
     if(variables.pos_fondo == 0):
-        variables.pos_fondo = -1380
+        variables.pos_fondo = -3450
     else:
         variables.pos_fondo = variables.pos_fondo + constantes.VELOCIDAD_ENTORNO
-
 
 def protector_memoria(elementos):
     for elemento in elementos:
@@ -74,7 +73,6 @@ def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
                 if(estado[0] == 0):
                     en_juego[0] = False
                     niveles[2] = False
-                    print(nivel,en_juego,estado)
                 elif(estado[0] == 1):
                     alarma_gameover = False
                     niveles[0] = True
@@ -105,22 +103,45 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
                 jugador.salud -= colision.daño
             elif colision.type == "misil":
                 jugador.salud -= colision.daño
+            elif colision.type == "enemigo2":
+                jugador.salud -= colision.daño
 
-def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables):
+def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables, jugador):
     for bala in balas_jugador:
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
                 if colision.type == "enemigo1":
-                    colision.salud = colision.salud - bala.daño 
+                    colision.salud -= bala.daño
+                    gestion_puntos_jugador(jugador,colision.type)
                     if(colision.salud <= 0):
                         lista_colisiones.remove(colision)
+                        gestion_puntos_jugador(jugador,colision.type,"destruido")
                 balas_jugador.remove(bala)
                 if colision.type == "enemigo2":
-                    colision.salud = colision.salud - bala.daño 
+                    colision.salud -= bala.daño
+                    gestion_puntos_jugador(jugador,colision.type)
                     if(colision.salud <= 0):
                         lista_colisiones.remove(colision)
+                        gestion_puntos_jugador(jugador,colision.type,"destruido")
                 balas_jugador.remove(bala)
+
+def gestion_puntos_jugador(jugador,objetivo,suceso="impacto"):
+    if objetivo == "enemigo1" and suceso == "impacto":
+        jugador.puntos += 10
+    elif objetivo == "enemigo1" and suceso == "destruido":
+        jugador.puntos += 18
+    elif objetivo == "enemigo2" and suceso == "impacto":
+        jugador.puntos += 25
+    elif objetivo == "enemigo2" and suceso == "destruido":
+        jugador.puntos += 32
+
+def dibujar_puntos_jugador(ventana,puntos):
+    pygame.font.init()
+    font_puntos = pygame.font.Font(None,40)
+    puntaje = font_puntos.render(str(puntos),True,(255,255,255))
+    ventana.blit(puntaje,[145,2])
+    pygame.font.quit()
 
 def gestionar_elementos_ambientales(jugador,elementos_ambientales):
     for elemento in elementos_ambientales:

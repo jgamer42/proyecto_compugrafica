@@ -31,4 +31,4 @@ sprite_vidas = utilidades.recorte_imagen(sabana_vidas,[116,30],3)
 #otros
 reloj = pygame.time.Clock()
 origen_disparo_enemigo = None
-pos_fondo = -1380
+pos_fondo = -3450

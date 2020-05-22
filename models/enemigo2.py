@@ -17,7 +17,7 @@ class Enemigo2(Enemigo_base):
         self.posy_inicial = pos[1]
         self.agresividad = agresividad
         self.type = "enemigo2"
-        self.daño = 700
+        self.daño = 1500
         self.salud = 100
 
     def atacar(self):

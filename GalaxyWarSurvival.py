@@ -17,7 +17,7 @@ from models.variables import *
 #3.  se termino la logica de destruir enemigos, por ahora solo funciona con enemigo 1, solo es cambiar el if para mas enemigos
 #4.  se hicieron cabmios menores en fin de juego numero que no coincidian y demas
 #5.  se creo la clase misil enemigo, esto con el fin de simplicar la clase misil
-#NOTA: 
+#NOTA:
 # el cambio 1 se puede revisar, si complica mas el codigo decir y se revierte
 # no poner el agujero fuera del ancho , es un "bug"
 # no poner el planeta fuera del ancho , es un "bug"
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     pygame.init()
     pygame.mixer.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
-    
+
     agujero = Agujero_negro([0,-100],constantes.DERECHA)
     planeta = Planeta([50,-200])
     jugador = Jugador([340,620])
@@ -54,7 +54,7 @@ if __name__ == "__main__":
             pygame.display.flip()
         music_intro.stop()
 
-        #Nivel 1
+        #Nivel 1CD
         music_juego.set_volume(0.5)
         music_juego.play(-1)
         while (niveles[1] and en_juego[0]):
@@ -65,7 +65,7 @@ if __name__ == "__main__":
             ambiente.gestionar_disparo_enemigo(balas_enemigos)
             elementos_colisionables = [balas_enemigos,enemigos]
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
-            ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables)
+            ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables, jugador)
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales]
             elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites]
             ambiente.protector_memoria(elementos_borrar)
