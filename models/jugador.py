@@ -14,7 +14,6 @@ class Jugador(pygame.sprite.Sprite):
         self.puntos = 0
         self.estado = 0
         self.frame = 0
-        self.escudo = 0
         self.pos_inicial = pos
         sabana1 = pygame.image.load("./Sprites/jugador/PlayerShipSprite_I.png")
         sabana2 = pygame.image.load("./Sprites/jugador/PlayerShipSprite_II.png")
@@ -28,12 +27,14 @@ class Jugador(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.velx = 0
         self.vely = 0
+        self.speed = ''
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.repeticiones = 0
 
     def update(self):
         self.frame = util.animar(self.frame,3)
+        self.cambio_animacion()
         self.control_limites()
         self.evaluar_vida()
         self.animacion_muerte()
@@ -65,19 +66,36 @@ class Jugador(pygame.sprite.Sprite):
     def controles(self,evento,lista_balas):
         if(evento.type == pygame.KEYDOWN):
             if(evento.key == pygame.K_RIGHT):
-                self.velx = 5*(self.estado+1)
-                self.vely = 0
+                if self.speed == 'speed':
+                    self.velx = 15
+                    self.vely = 0
+                else:
+                    self.velx = 5
+                    self.vely = 0
             if(evento.key == pygame.K_LEFT):
-                self.velx = -5*(self.estado+1)
-                self.vely = 0
+                if self.speed == 'speed':
+                    self.velx = -15
+                    self.vely = 0
+                else:
+                    self.velx = -5
+                    self.vely = 0
             if(evento.key == pygame.K_UP):
-                self.vely = -5*(self.estado+1)
-                self.velx = 0
+                if self.speed == 'speed':
+                    self.vely = -15
+                    self.velx = 0
+                else:
+                    self.vely = -5
+                    self.velx = 0
             if(evento.key == pygame.K_DOWN):
-                self.vely = 5*(self.estado+1)
-                self.velx = 0
+                if self.speed == 'speed':
+                    self.vely = 15
+                    self.velx = 0
+                else:
+                    self.vely = 5
+                    self.velx = 0
             if(evento.key == pygame.K_s):
-                self.cambio_animacion()
+                #self.cambio_animacion()
+                self.speed = 'speed'
             if(evento.key == pygame.K_d and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.right-20,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
@@ -101,7 +119,6 @@ class Jugador(pygame.sprite.Sprite):
         lista_balas.add(bala)
 
     def cambio_animacion(self):
-        self.estado = self.estado + 1
         pos_x = self.rect.x
         pos_y = self.rect.y
         self.image = self.animaciones[self.estado][self.frame]
@@ -135,6 +152,3 @@ class Jugador(pygame.sprite.Sprite):
             pass
         else:
             ambiente.alarma_gameover = True
-
-            
-

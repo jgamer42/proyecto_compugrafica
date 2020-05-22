@@ -11,9 +11,12 @@ from models.satelite import Satelite
 from models.agujero_negro import Agujero_negro
 from models.planeta import Planeta
 from models.variables import *
-#cambios:
-# se limpio el codigo 
-# ver atributos puntos en todas las clases
+#cambios LEEER
+#1.  para organizar un poco el codigo se llevaron casi todas las variables al paquete variables
+#2.  se agregaron los elementos ambientales a peticion del docente, ya tienen la logica del funcionamiento
+#3.  se termino la logica de destruir enemigos, por ahora solo funciona con enemigo 1, solo es cambiar el if para mas enemigos
+#4.  se hicieron cabmios menores en fin de juego numero que no coincidian y demas
+#5.  se creo la clase misil enemigo, esto con el fin de simplicar la clase misil
 #NOTA:
 # el cambio 1 se puede revisar, si complica mas el codigo decir y se revierte
 # no poner el agujero fuera del ancho , es un "bug"
@@ -23,8 +26,17 @@ if __name__ == "__main__":
     pygame.mixer.init()
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
 
+    agujero = Agujero_negro([0,-100],constantes.DERECHA)
+    planeta = Planeta([50,-200])
     jugador = Jugador([340,620])
+    satelite = Satelite([100,100])
+
+    elementos_ambientales.add(agujero)
+    elementos_ambientales.add(planeta)
     jugadores.add(jugador)
+    satelites.add(satelite)
+    utilidades.generar_enemigos(enemigos)
+    utilidades.generar_asteroides(enemigos)
 
     niveles = [True,True,True]
     en_juego = [True]
@@ -43,15 +55,6 @@ if __name__ == "__main__":
         music_intro.stop()
 
         #Nivel 1CD
-        agujero = Agujero_negro([0,-100],constantes.DERECHA)
-        planeta = Planeta([50,-200])
-        satelite = Satelite([100,100])
-        #FIXME : si reinicia y quedaban elementos en pantalla de la anterior los elementos se duplican
-        elementos_ambientales.add(agujero)
-        elementos_ambientales.add(planeta)
-        satelites.add(satelite)
-        utilidades.generar_enemigos(enemigos)
-        utilidades.generar_asteroides(enemigos)
         music_juego.set_volume(0.5)
         music_juego.play(-1)
         while (niveles[1] and en_juego[0]):
