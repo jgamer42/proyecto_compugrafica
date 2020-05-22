@@ -4,6 +4,7 @@ from .enemigo_base import Enemigo_base
 from . import utilidades as util
 from . import ambiente
 
+
 class Enemigo1(Enemigo_base):
     def __init__(self,pos,direccion,agresividad):
         super().__init__(pos,direccion,agresividad)
@@ -18,14 +19,16 @@ class Enemigo1(Enemigo_base):
         self.atacando = False
         self.type = "enemigo1"
         self.salud = 500
+        self.puntos_impacto = 10
+        self.puntos_morir = 18
 
     def atacar(self):
         ataque = None
         if not(self.atacando):
             ataque = random.randint(0,self.agresividad)
         if(ataque == 0):
-            ambiente.alarma_disparo_enemigo1 = True
             ambiente.origen_disparo_enemigo = self.rect.center
+            ambiente.alarma_disparo_enemigo = True
 
     def update(self):
         self.atacar()

@@ -6,6 +6,7 @@ from . import variables
 
 #alarmas
 alarma_disparo_enemigo = False
+origen_disparo_enemigo = None
 alarma_gameover = False
 alarma_planeta = False
 
@@ -91,7 +92,7 @@ def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
 def gestionar_disparo_enemigo(balas_enemigos):
     global alarma_disparo_enemigo
     if(alarma_disparo_enemigo == True):
-        misil = Misil_enemigo(variables.origen_disparo_enemigo)
+        misil = Misil_enemigo(origen_disparo_enemigo)
         balas_enemigos.add(misil)
         alarma_disparo_enemigo=False
 
@@ -99,11 +100,7 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
-            if (colision.type == "asteroide"):
-                jugador.salud -= colision.daño
-            elif colision.type == "misil":
-                jugador.salud -= colision.daño
-            elif colision.type == "enemigo2":
+            if (colision.type == "asteroide" or colision.type == "misil" or colision.type == "enemigo2"):
                 jugador.salud -= colision.daño
 
 def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables, jugador):
@@ -111,30 +108,14 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables, jug
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
-                if colision.type == "enemigo1":
+                if colision.type == "enemigo1" or colision.type == "enemigo2":
                     colision.salud -= bala.daño
-                    gestion_puntos_jugador(jugador,colision.type)
+                    jugador.puntos = jugador.puntos + colision.puntos_impacto
                     if(colision.salud <= 0):
                         lista_colisiones.remove(colision)
-                        gestion_puntos_jugador(jugador,colision.type,"destruido")
-                balas_jugador.remove(bala)
-                if colision.type == "enemigo2":
-                    colision.salud -= bala.daño
-                    gestion_puntos_jugador(jugador,colision.type)
-                    if(colision.salud <= 0):
-                        lista_colisiones.remove(colision)
-                        gestion_puntos_jugador(jugador,colision.type,"destruido")
+                        jugador.puntos = jugador.puntos + colision.puntos_morir
                 balas_jugador.remove(bala)
 
-def gestion_puntos_jugador(jugador,objetivo,suceso="impacto"):
-    if objetivo == "enemigo1" and suceso == "impacto":
-        jugador.puntos += 10
-    elif objetivo == "enemigo1" and suceso == "destruido":
-        jugador.puntos += 18
-    elif objetivo == "enemigo2" and suceso == "impacto":
-        jugador.puntos += 25
-    elif objetivo == "enemigo2" and suceso == "destruido":
-        jugador.puntos += 32
 
 def dibujar_puntos_jugador(ventana,puntos):
     pygame.font.init()
