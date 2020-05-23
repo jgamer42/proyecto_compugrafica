@@ -106,7 +106,7 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
             elif colision.type == "enemigo2":
                 jugador.salud -= colision.daño
 
-def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables, jugador):
+def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,jugador,ventana):
     for bala in balas_jugador:
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
@@ -115,6 +115,7 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables, jug
                     colision.salud -= bala.daño
                     gestion_puntos_jugador(jugador,colision.type)
                     if(colision.salud <= 0):
+                        util.explosion_enemigos(ventana,colision.posActual)
                         lista_colisiones.remove(colision)
                         gestion_puntos_jugador(jugador,colision.type,"destruido")
                 balas_jugador.remove(bala)
@@ -122,8 +123,13 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables, jug
                     colision.salud -= bala.daño
                     gestion_puntos_jugador(jugador,colision.type)
                     if(colision.salud <= 0):
+                        util.explosion_enemigos(ventana,colision.posActual)
                         lista_colisiones.remove(colision)
                         gestion_puntos_jugador(jugador,colision.type,"destruido")
+                if colision.type == "misil":
+                    util.explosion_enemigos(ventana,colision.posActual)
+                    lista_colisiones.remove(colision)
+                    gestion_puntos_jugador(jugador,colision.type)
                 balas_jugador.remove(bala)
 
 def gestion_puntos_jugador(jugador,objetivo,suceso="impacto"):
@@ -135,6 +141,8 @@ def gestion_puntos_jugador(jugador,objetivo,suceso="impacto"):
         jugador.puntos += 25
     elif objetivo == "enemigo2" and suceso == "destruido":
         jugador.puntos += 32
+    elif objetivo == "misil":
+        jugador.puntos += 6
 
 def dibujar_puntos_jugador(ventana,puntos):
     pygame.font.init()

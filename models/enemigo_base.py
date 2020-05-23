@@ -3,6 +3,7 @@ from . import constantes
 class Enemigo_base(pygame.sprite.Sprite):
     def __init__(self,pos,direccion,agresividad):
         pygame.sprite.Sprite.__init__(self)
+        self.posActual = pos
         self.velx = 8*direccion
         self.vely = 0
         self.image=pygame.Surface([50,50])
@@ -15,8 +16,10 @@ class Enemigo_base(pygame.sprite.Sprite):
 
     def update(self):
         self.comportamiento_limites()
-        self.rect.x = self.rect.x + self.velx*self.direccion
-        self.rect.y = self.rect.y + self.vely
+        self.posActual[0] = self.rect.x + self.velx*self.direccion
+        self.rect.x = self.posActual[0]
+        self.posActual[1] = self.rect.y + self.vely
+        self.rect.y =  self.posActual[1]
 
     def comportamiento_limites(self):
         if(self.rect.left <= 0) or (self.rect.right >= constantes.ANCHO):

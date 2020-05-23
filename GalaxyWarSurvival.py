@@ -65,7 +65,7 @@ if __name__ == "__main__":
             ambiente.gestionar_disparo_enemigo(balas_enemigos)
             elementos_colisionables = [balas_enemigos,enemigos]
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
-            ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables, jugador)
+            ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables,jugador,ventana)
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales]
             elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites]
             ambiente.protector_memoria(elementos_borrar)

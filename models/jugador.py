@@ -65,6 +65,9 @@ class Jugador(pygame.sprite.Sprite):
 
     def controles(self,evento,lista_balas):
         if(evento.type == pygame.KEYDOWN):
+            if(evento.key == pygame.K_s):
+                #self.cambio_animacion()
+                self.speed = 'speed'
             if(evento.key == pygame.K_RIGHT):
                 if self.speed == 'speed':
                     self.velx = 15
@@ -93,9 +96,6 @@ class Jugador(pygame.sprite.Sprite):
                 else:
                     self.vely = 5
                     self.velx = 0
-            if(evento.key == pygame.K_s):
-                #self.cambio_animacion()
-                self.speed = 'speed'
             if(evento.key == pygame.K_d and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.right-20,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)

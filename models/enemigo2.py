@@ -7,9 +7,11 @@ class Enemigo2(Enemigo_base):
     def __init__(self,pos,direccion,agresividad):
         super().__init__(pos,direccion,agresividad)
         self.frame = 0
+        self.animaciones = []
+        self.fila_animacion = 0
         sabana = pygame.image.load("./Sprites/enemigos/SpriteEnemyBoomShip.png")
-        self.animacion = util.recorte_imagen(sabana,[73,121],3)
-        self.image =  self.animacion[self.frame]
+        self.animaciones.append(util.recorte_imagen(sabana,[73,121],3))
+        self.image =  self.animaciones[self.fila_animacion][self.frame]
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -40,5 +42,6 @@ class Enemigo2(Enemigo_base):
         super().comportamiento_limites()
 
     def update(self):
+        self.frame = util.animar(self.frame,3)
         self.atacar()
         super().update()

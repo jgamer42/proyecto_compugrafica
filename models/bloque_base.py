@@ -5,6 +5,7 @@ from. import constantes
 class Bloque_base(pygame.sprite.Sprite):
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
+        self.posActual = pos
         self.velx = 0
         self.vely = constantes.VELOCIDAD_ENTORNO
         self.image = pygame.Surface([50,100])
@@ -14,5 +15,7 @@ class Bloque_base(pygame.sprite.Sprite):
         self.rect.y = pos[1]
 
     def update(self):
-        self.rect.y = self.rect.y + self.vely
-        self.rect.x = self.rect.x + self.velx
+        self.posActual[0] = self.rect.x + self.velx
+        self.rect.x = self.posActual[0]
+        self.posActual[1] = self.rect.y + self.vely
+        self.rect.y = self.posActual[1]
