@@ -11,8 +11,8 @@ alarma_planeta = False
 origen_disparo_enemigo = None
 
 
-def ciclo_de_juego(ventana,elementos,jugador):
-    condicion_derrota()
+def ciclo_de_juego(ventana,elementos,jugador,niveles):
+    condicion_derrota(niveles)
     ventana.fill(constantes.NEGRO)
     cargar_gui(ventana,jugador)
     for elemento in elementos:
@@ -21,11 +21,11 @@ def ciclo_de_juego(ventana,elementos,jugador):
     pygame.display.flip()
     variables.reloj.tick(constantes.NUMERO_FPS)
 
-def condicion_derrota():
+def condicion_derrota(niveles):
     if(alarma_gameover):
-        variables.niveles[0] = False
-        variables.niveles[1] = False
-        variables.niveles[2] = True
+        niveles[0] = False
+        niveles[1] = False
+        niveles[2] = True
 
 def cargar_gui(ventana,jugador):
     seleccionar_pos_fondo()
@@ -103,13 +103,13 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
         for colision in colisiones:
             if (colision.type == "asteroide" or colision.type == "misil_enemigo"or colision.type == "enemigo2"):
                 jugador.salud -= colision.daño
-                
+
 def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,jugador,ventana):
     for bala in balas_jugador:
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
-                
+
                 if colision.type == "enemigo1"  or colision.type=="enemigo2":
                     colision.salud -= bala.daño
                     jugador.puntos = jugador.puntos + colision.puntos_impacto

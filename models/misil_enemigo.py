@@ -7,6 +7,7 @@ import pygame
 class Misil_enemigo(Bala_base):
     def __init__(self,pos):
         super().__init__(pos)
+        self.posActual = pos
         pos_x = self.rect.x
         pos_y = self.rect.y
         sabana = pygame.image.load("./Sprites/balas/SpriteEnemyMisil_I.png")

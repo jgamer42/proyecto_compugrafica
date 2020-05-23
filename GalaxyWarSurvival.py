@@ -60,7 +60,7 @@ if __name__ == "__main__":
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales]
             elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites]
             ambiente.protector_memoria(elementos_borrar)
-            ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador)
+            ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador,niveles)
         music_juego.stop()
 
         #fin de juego
