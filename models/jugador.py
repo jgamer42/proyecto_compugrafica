@@ -27,7 +27,7 @@ class Jugador(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.velx = 0
         self.vely = 0
-        self.speed = ''
+        self.speed = False
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.repeticiones = 0
@@ -67,30 +67,30 @@ class Jugador(pygame.sprite.Sprite):
         if(evento.type == pygame.KEYDOWN):
             if(evento.key == pygame.K_s):
                 #self.cambio_animacion()
-                self.speed = 'speed'
+                self.speed = True
             if(evento.key == pygame.K_RIGHT):
-                if self.speed == 'speed':
+                if self.speed:
                     self.velx = 15
                     self.vely = 0
                 else:
                     self.velx = 5
                     self.vely = 0
             if(evento.key == pygame.K_LEFT):
-                if self.speed == 'speed':
+                if self.speed:
                     self.velx = -15
                     self.vely = 0
                 else:
                     self.velx = -5
                     self.vely = 0
             if(evento.key == pygame.K_UP):
-                if self.speed == 'speed':
+                if self.speed:
                     self.vely = -15
                     self.velx = 0
                 else:
                     self.vely = -5
                     self.velx = 0
             if(evento.key == pygame.K_DOWN):
-                if self.speed == 'speed':
+                if self.speed:
                     self.vely = 15
                     self.velx = 0
                 else:
@@ -108,7 +108,7 @@ class Jugador(pygame.sprite.Sprite):
             if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                 self.frenar()
             if evento.key == pygame.K_s:
-                self.speed = ''
+                self.speed = False
 
     def frenar(self):
         self.velx=0

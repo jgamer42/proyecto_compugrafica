@@ -8,6 +8,7 @@ from . import variables
 alarma_disparo_enemigo = False
 alarma_gameover = False
 alarma_planeta = False
+origen_disparo_enemigo = None
 
 
 def ciclo_de_juego(ventana,elementos,jugador):
@@ -89,9 +90,10 @@ def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
         en_juego[0] = False
 
 def gestionar_disparo_enemigo(balas_enemigos):
+    global origen_disparo_enemigo
     global alarma_disparo_enemigo
     if(alarma_disparo_enemigo == True):
-        misil = Misil_enemigo(variables.origen_disparo_enemigo)
+        misil = Misil_enemigo(origen_disparo_enemigo)
         balas_enemigos.add(misil)
         alarma_disparo_enemigo=False
 
@@ -99,50 +101,30 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
-            if (colision.type == "asteroide"):
+            if (colision.type == "asteroide" or colision.type == "misil_enemigo"or colision.type == "enemigo2"):
                 jugador.salud -= colision.daño
-            elif colision.type == "misil":
-                jugador.salud -= colision.daño
-            elif colision.type == "enemigo2":
-                jugador.salud -= colision.daño
-
+                
 def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,jugador,ventana):
     for bala in balas_jugador:
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
-                if colision.type == "enemigo1":
+                
+                if colision.type == "enemigo1"  or colision.type=="enemigo2":
                     colision.salud -= bala.daño
-                    gestion_puntos_jugador(jugador,colision.type)
+                    jugador.puntos = jugador.puntos + colision.puntos_impacto
                     if(colision.salud <= 0):
                         util.explosion_enemigos(ventana,colision.posActual)
                         lista_colisiones.remove(colision)
-                        gestion_puntos_jugador(jugador,colision.type,"destruido")
-                balas_jugador.remove(bala)
-                if colision.type == "enemigo2":
-                    colision.salud -= bala.daño
-                    gestion_puntos_jugador(jugador,colision.type)
-                    if(colision.salud <= 0):
-                        util.explosion_enemigos(ventana,colision.posActual)
-                        lista_colisiones.remove(colision)
-                        gestion_puntos_jugador(jugador,colision.type,"destruido")
-                if colision.type == "misil":
+                        jugador.puntos = jugador.puntos + colision.puntos_destruir
+
+                if colision.type == "misil_enemigo":
                     util.explosion_enemigos(ventana,colision.posActual)
                     lista_colisiones.remove(colision)
-                    gestion_puntos_jugador(jugador,colision.type)
+                    jugador.puntos = jugador.puntos + colision.puntos
+
                 balas_jugador.remove(bala)
 
-def gestion_puntos_jugador(jugador,objetivo,suceso="impacto"):
-    if objetivo == "enemigo1" and suceso == "impacto":
-        jugador.puntos += 10
-    elif objetivo == "enemigo1" and suceso == "destruido":
-        jugador.puntos += 18
-    elif objetivo == "enemigo2" and suceso == "impacto":
-        jugador.puntos += 25
-    elif objetivo == "enemigo2" and suceso == "destruido":
-        jugador.puntos += 32
-    elif objetivo == "misil":
-        jugador.puntos += 6
 
 def dibujar_puntos_jugador(ventana,puntos):
     pygame.font.init()

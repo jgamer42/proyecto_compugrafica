@@ -16,5 +16,6 @@ class Misil_enemigo(Bala_base):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
-        self.type = "misil"
+        self.type = "misil_enemigo"
         self.daño = 130
+        self.puntos = 6

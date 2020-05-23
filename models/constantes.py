@@ -1,14 +1,15 @@
-#cambios
-#1. añadadida la variable numero_fps indica la velocidad del reloj
-#2. añadida la variable POS_INICIAL es para restablecer el jugador cuando pierda una vida
+#Entorno del juego
 ANCHO = 768
 ALTO = 690
 ZONA_JUEGO = 300
 VELOCIDAD_ENTORNO = 5
 NUMERO_FPS = 20
+#elementos de las clases
 VIDAS = 3
 DERECHA = -1
 IZQUIERDA = 1
+
+#Colores
 AZUL = [5,100,252]
 MORADO = [169,40,201]
 NEGRO = [0,0,0]

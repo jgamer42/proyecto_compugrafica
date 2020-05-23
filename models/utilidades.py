@@ -36,16 +36,16 @@ def animar(frame_actual,numero_frames):
         return(frame_actual)
 
 def generar_enemigos(enemigos):
-    for i in range(3):
+    for i in range(1):
         posx = random.randint(10,200)
         posy = random.randint(10,200)
         direccion = random.choice([-1,1])
         enemigo = Enemigo2([posx,posy],direccion,100)
         enemigos.add(enemigo)
-    for i in range(6):
+    for i in range(1):
         posx = random.randint(10,200)
         posy = random.randint(10,200)
-        direccion = random.choice([-1,1]) #gestionar revision del anterior para que siemrpe salgan en desorden, así se controla el azar o crear una funcion para que salgan en un orden que no sea el "azar"
+        direccion = random.choice([-1,1]) 
         enemigo = Enemigo1([posx,posy],direccion,100)
         enemigos.add(enemigo)
 
@@ -54,10 +54,12 @@ def generar_asteroides(asteroides):
     asteroides.add(asteroide)
 
 def explosion_enemigos(ventana,pos):
+    global animacion_muerte_enemigos
     frame = 0
-    sabana = pygame.image.load("./Sprites/enemigos/SpriteEnemyExplosion.png")
-    animacion = recorte_imagen(sabana,[90,80],6)
-    for repeticion in range(6):
+    for repeticion in range(10):
         frame = animar(frame,6)
-        ventana.blit(animacion[frame],pos)
+        ventana.blit(animacion_muerte_enemigos[frame],pos)
         pygame.display.flip()
+
+sabana_muerte_enemigos = pygame.image.load("./Sprites/enemigos/SpriteEnemyExplosion.png")
+animacion_muerte_enemigos = recorte_imagen(sabana_muerte_enemigos,[90,80],6)

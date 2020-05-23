@@ -12,16 +12,12 @@ class Agujero_negro(Bloque_base):
         self.animacion = util.recorte_imagen(sabana,[80,70],8)
         self.image = self.animacion[self.frame]
         self.rect = self.image.get_rect()
+        self.rect.x = pos[0]
+        self.rect.y = pos[1]
         self.type = "agujero"
         self.direccion = direccion
 
-    def animar(self):
-        self.image = self.animacion[self.frame]
-        self.rect = self.image.get_rect()
-        self.rect.x = self.posActual[0]
-        self.rect.y = self.posActual[1]
-
     def update(self):
         self.frame = util.animar(self.frame,8)
-        self.animar()
+        self.image = self.animacion[self.frame]
         super().update()

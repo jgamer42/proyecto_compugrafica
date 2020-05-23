@@ -18,13 +18,15 @@ class Enemigo1(Enemigo_base):
         self.atacando = False
         self.type = "enemigo1"
         self.salud = 500
+        self.puntos_impacto = 10
+        self.puntos_destruir = 18
 
     def atacar(self):
         ataque = None
         if not(self.atacando):
             ataque = random.randint(0,self.agresividad)
         if(ataque == 0):
-            ambiente.alarma_disparo_enemigo1 = True
+            ambiente.alarma_disparo_enemigo = True
             ambiente.origen_disparo_enemigo = self.rect.center
 
     def update(self):

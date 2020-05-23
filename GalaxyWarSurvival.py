@@ -11,16 +11,7 @@ from models.satelite import Satelite
 from models.agujero_negro import Agujero_negro
 from models.planeta import Planeta
 from models.variables import *
-#cambios LEEER
-#1.  para organizar un poco el codigo se llevaron casi todas las variables al paquete variables
-#2.  se agregaron los elementos ambientales a peticion del docente, ya tienen la logica del funcionamiento
-#3.  se termino la logica de destruir enemigos, por ahora solo funciona con enemigo 1, solo es cambiar el if para mas enemigos
-#4.  se hicieron cabmios menores en fin de juego numero que no coincidian y demas
-#5.  se creo la clase misil enemigo, esto con el fin de simplicar la clase misil
-#NOTA:
-# el cambio 1 se puede revisar, si complica mas el codigo decir y se revierte
-# no poner el agujero fuera del ancho , es un "bug"
-# no poner el planeta fuera del ancho , es un "bug"
+
 if __name__ == "__main__":
     pygame.init()
     pygame.mixer.init()
@@ -82,5 +73,4 @@ if __name__ == "__main__":
             cargar = GameOver[estado[0]]
             ventana.blit(cargar, [0,0])
             pygame.display.flip()
-            print(niveles[2],en_juego[0])
         music_out.stop()

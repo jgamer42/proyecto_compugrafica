@@ -28,7 +28,9 @@ sabana_salud = pygame.image.load("./Sprites/Gui/SpriteSalud.png")
 sprite_salud = utilidades.recorte_imagen(sabana_salud,[80,30],6)
 sprite_vidas = utilidades.recorte_imagen(sabana_vidas,[116,30],3)
 
+sabana_muerte_enemigos = pygame.image.load("./Sprites/enemigos/SpriteEnemyExplosion.png")
+animacion_muerte_enemigos = utilidades.recorte_imagen(sabana_muerte_enemigos,[90,80],6)
+
 #otros
 reloj = pygame.time.Clock()
-origen_disparo_enemigo = None
 pos_fondo = -3450
