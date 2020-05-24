@@ -12,6 +12,12 @@ alarma_planeta = False
 origen_modif = None
 origen_disparo_enemigo = None
 
+#sprites
+sabana_numeros = pygame.image.load("./Sprites/Numeros0a9.png")
+numeros = util.recorte_imagen(sabana_numeros,[14,19],10)
+
+#lista de enemigos para colisiones
+nombres_enemigos = ["misil_enemigo","asteroide","enemigo1","enemigo2"]
 
 def ciclo_de_juego(ventana,elementos,jugador,niveles):
     condicion_derrota(niveles)
@@ -59,7 +65,7 @@ def seleccionar_pos_fondo():
 def protector_memoria(elementos):
     for elemento in elementos:
         for e in elemento:
-            if(e.type == "asteroide" or e.type == "agujero" or e.type =="planeta" or e.type == "satelite"):
+            if(e.type == "asteroide" or e.type == "agujero" or e.type == "planeta" or e.type == "satelite"):
                 if(e.rect.y > constantes.ALTO):
                     elemento.remove(e)
             else:
@@ -105,13 +111,13 @@ def gestionar_generacion_modific(balas_enemigos):
     if(alarma_generar_modif == True):
         misil = Misil_enemigo(origen_modif)
         balas_enemigos.add(misil)
-        alarma_generar_modif=False
+        alarma_generar_modif = False
 
 def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
         for colision in colisiones:
-            if (colision.type == "asteroide" or colision.type == "misil_enemigo"or colision.type == "enemigo2"):
+            if (colision.type in nombres_enemigos):
                 jugador.salud -= colision.daño
 
 def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,jugador,ventana):
@@ -120,28 +126,37 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,juga
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
 
-                if colision.type == "enemigo1"  or colision.type=="enemigo2":
-                    colision.salud -= bala.daño
-                    jugador.puntos = jugador.puntos + colision.puntos_impacto
-                    if(colision.salud <= 0):
+                if colision.type in nombres_enemigos:
+                    if colision.type == "misil_enemigo":
                         util.explosion_enemigos(ventana,colision.posActual)
                         lista_colisiones.remove(colision)
-                        jugador.puntos = jugador.puntos + colision.puntos_destruir
-
-                if colision.type == "misil_enemigo":
-                    util.explosion_enemigos(ventana,colision.posActual)
-                    lista_colisiones.remove(colision)
-                    jugador.puntos = jugador.puntos + colision.puntos
+                        jugador.puntos += colision.puntos
+                    else:
+                        colision.salud -= bala.daño
+                        jugador.puntos += colision.puntos_impacto
+                        if(colision.salud <= 0):
+                            util.explosion_enemigos(ventana,colision.posActual)
+                            lista_colisiones.remove(colision)
+                            jugador.puntos += colision.puntos_destruir
 
                 balas_jugador.remove(bala)
 
 
 def dibujar_puntos_jugador(ventana,puntos):
-    pygame.font.init()
-    font_puntos = pygame.font.Font(None,40)
-    puntaje = font_puntos.render(str(puntos),True,(255,255,255))
-    ventana.blit(puntaje,[145,2])
-    pygame.font.quit()
+    miles = puntos/1000
+    centena = puntos/100
+    decena = (puntos % 100)/10
+    unidad = decena % 10
+
+    if int(miles) != 0:
+        ventana.blit(numeros[int(miles)],[160,5])
+    if int(centena) != 0 or miles > 0:
+        ventana.blit(numeros[int(centena)],[177,5])
+    if int(decena) != 0 or centena > 0 or miles > 0:
+        ventana.blit(numeros[int(decena)],[194,5])
+
+    ventana.blit(numeros[int(unidad)],[211,5])
+    pygame.display.flip()
 
 def gestionar_elementos_ambientales(jugador,elementos_ambientales):
     for elemento in elementos_ambientales:

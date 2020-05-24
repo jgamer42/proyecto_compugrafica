@@ -18,7 +18,7 @@ class Enemigo1(Enemigo_base):
         self.atacando = False
         self.type = "enemigo1"
         self.salud = 500
-        self.puntos_impacto = 10
+        self.puntos_impacto = 11
         self.puntos_destruir = 18
 
     def atacar(self):
