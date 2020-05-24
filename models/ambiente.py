@@ -6,8 +6,10 @@ from . import variables
 
 #alarmas
 alarma_disparo_enemigo = False
+alarma_generar_modif = False
 alarma_gameover = False
 alarma_planeta = False
+origen_modif = None
 origen_disparo_enemigo = None
 
 
@@ -96,6 +98,14 @@ def gestionar_disparo_enemigo(balas_enemigos):
         misil = Misil_enemigo(origen_disparo_enemigo)
         balas_enemigos.add(misil)
         alarma_disparo_enemigo=False
+
+def gestionar_generacion_modific(balas_enemigos):
+    global origen_modif
+    global alarma_generar_modif
+    if(alarma_generar_modif == True):
+        misil = Misil_enemigo(origen_modif)
+        balas_enemigos.add(misil)
+        alarma_generar_modif=False
 
 def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:

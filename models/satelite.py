@@ -10,12 +10,19 @@ class Satelite(Bloque_base):
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
+        self.generando = False
         self.type = "satelite"
         self.estado =True
 
     def generar(self):
-        pass
-    
+        generador = None
+        if not(self.generando):
+            generador = random.randint(0,10)
+        if(generador == 0):
+            ambiente.alarma_generar_modif = True
+            ambiente.origen_modif = self.rect.center
+            print("Generar")
+
     def update(self):
         self.generar()
         super().update()
