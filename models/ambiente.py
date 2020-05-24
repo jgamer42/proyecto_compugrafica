@@ -7,6 +7,7 @@ from . import variables
 #alarmas
 alarma_disparo_enemigo = False
 alarma_generar_modif = False
+alarma_victoria = False
 alarma_gameover = False
 alarma_planeta = False
 origen_modif = None
