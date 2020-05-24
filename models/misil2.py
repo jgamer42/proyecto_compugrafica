@@ -8,7 +8,7 @@ class Misil(Bala_base):
         super().__init__(pos)
         pos_x = self.rect.x
         pos_y = self.rect.y
-        sabana = pygame.image.load("./Sprites/balas/SpritePlayerMisil_I.png")
+        sabana = pygame.image.load("./Sprites/balas/SpritePlayerMisil_II.png")
         self.animacion = utilidades.recorte_imagen(sabana,[19,88],3)
         self.frame = 0
         self.vely = -50
@@ -16,8 +16,8 @@ class Misil(Bala_base):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
-        self.type = "misil"
-        self.daño = 130
+        self.type = "misil2"
+        self.daño = 200
 
     def update(self):
         super().update()

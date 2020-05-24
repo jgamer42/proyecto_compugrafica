@@ -106,12 +106,12 @@ def gestionar_disparo_enemigo(balas_enemigos):
         balas_enemigos.add(misil)
         alarma_disparo_enemigo=False
 
-def gestionar_generacion_modific(balas_enemigos):
+def gestionar_generacion_modific(modificadores):
     global origen_modif
     global alarma_generar_modif
     if(alarma_generar_modif == True):
-        misil = Misil_enemigo(origen_modif)
-        balas_enemigos.add(misil)
+        modif = Modificador(origen_modif)
+        modificadores.add(modif)
         alarma_generar_modif = False
 
 def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
