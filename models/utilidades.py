@@ -5,6 +5,10 @@ from .enemigo1 import Enemigo1
 from .asteroide1 import Asteroide1
 from . import constantes as con
 
+# sabana muerte enemigos
+sabana_muerte_enemigos = pygame.image.load("./Sprites/enemigos/SpriteEnemyExplosion.png")
+animacion_muerte_enemigos = recorte_imagen(sabana_muerte_enemigos,[90,80],6)
+
 def recorte_explosion(sabana,size,frames,filas):
     animacion = []
     for f in range(filas):
@@ -60,6 +64,3 @@ def explosion_enemigos(ventana,pos):
         frame = animar(frame,6)
         ventana.blit(animacion_muerte_enemigos[frame],pos)
         pygame.display.flip()
-
-sabana_muerte_enemigos = pygame.image.load("./Sprites/enemigos/SpriteEnemyExplosion.png")
-animacion_muerte_enemigos = recorte_imagen(sabana_muerte_enemigos,[90,80],6)

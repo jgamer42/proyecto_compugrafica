@@ -70,31 +70,31 @@ class Jugador(pygame.sprite.Sprite):
                 self.speed = True
             if(evento.key == pygame.K_RIGHT):
                 if self.speed:
-                    self.velx = 15
+                    self.velx = 15 * (self.estado + 1)
                     self.vely = 0
                 else:
-                    self.velx = 5
+                    self.velx = 5 * (self.estado + 1)
                     self.vely = 0
             if(evento.key == pygame.K_LEFT):
                 if self.speed:
-                    self.velx = -15
+                    self.velx = -15 * (self.estado + 1)
                     self.vely = 0
                 else:
-                    self.velx = -5
+                    self.velx = -5 * (self.estado + 1)
                     self.vely = 0
             if(evento.key == pygame.K_UP):
                 if self.speed:
-                    self.vely = -15
+                    self.vely = -15 * (self.estado + 1)
                     self.velx = 0
                 else:
-                    self.vely = -5
+                    self.vely = -5 * (self.estado + 1)
                     self.velx = 0
             if(evento.key == pygame.K_DOWN):
                 if self.speed:
-                    self.vely = 15
+                    self.vely = 15 * (self.estado + 1)
                     self.velx = 0
                 else:
-                    self.vely = 5
+                    self.vely = 5 * (self.estado + 1)
                     self.velx = 0
             if(evento.key == pygame.K_d and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.right-20,self.rect.y]

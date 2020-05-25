@@ -27,7 +27,7 @@ if __name__ == "__main__":
     jugadores.add(jugador)
     satelites.add(satelite)
     utilidades.generar_enemigos(enemigos)
-    utilidades.generar_asteroides(enemigos)
+    utilidades.generar_asteroides(asteroides)
 
     niveles = [True,True,True]
     en_juego = [True]
@@ -58,9 +58,9 @@ if __name__ == "__main__":
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
             ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables,jugador,ventana)
             elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales]
-            elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites]
+            elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites,asteroides]
             ambiente.protector_memoria(elementos_borrar)
-            ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador,niveles)
+            ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador,niveles,enemigos)
         music_juego.stop()
 
         #fin de juego

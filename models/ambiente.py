@@ -20,7 +20,8 @@ numeros = util.recorte_imagen(sabana_numeros,[14,19],10)
 #lista de enemigos para colisiones
 nombres_enemigos = ["misil_enemigo","asteroide","enemigo1","enemigo2"]
 
-def ciclo_de_juego(ventana,elementos,jugador,niveles):
+def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos):
+    evaluar_victoria(enemigos)
     condicion_derrota(niveles)
     ventana.fill(constantes.NEGRO)
     cargar_gui(ventana,jugador)
@@ -29,6 +30,11 @@ def ciclo_de_juego(ventana,elementos,jugador,niveles):
         elemento.update()
     pygame.display.flip()
     variables.reloj.tick(constantes.NUMERO_FPS)
+
+def evaluar_victoria(enemigos):
+    if not enemigos:
+        print('victoria')
+        alarma_victoria = True
 
 def condicion_derrota(niveles):
     if(alarma_gameover):
@@ -68,6 +74,7 @@ def protector_memoria(elementos):
         for e in elemento:
             if(e.type == "asteroide" or e.type == "agujero" or e.type == "planeta" or e.type == "satelite"):
                 if(e.rect.y > constantes.ALTO):
+                    print(e.type)
                     elemento.remove(e)
             else:
                 if(e.rect.bottom <= 0) or (e.rect.top > constantes.ALTO):
@@ -141,7 +148,6 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,juga
                             jugador.puntos += colision.puntos_destruir
 
                 balas_jugador.remove(bala)
-
 
 def dibujar_puntos_jugador(ventana,puntos):
     miles = puntos/1000
