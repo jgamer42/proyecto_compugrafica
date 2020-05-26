@@ -3,25 +3,28 @@ from . import constantes
 from models.misil_enemigo import Misil_enemigo
 from . import utilidades as util
 from . import variables
+from .asteroide1 import Asteroide1
 
 #alarmas
 alarma_disparo_enemigo = False
 alarma_generar_modif = False
+alarma_generar_asteroide = False
 alarma_gameover = False
 alarma_victoria = False
 alarma_planeta = False
 origen_modif = None
 origen_disparo_enemigo = None
+origen_asteroide = None
 
 #sprites
-sabana_numeros = pygame.image.load("./Sprites/Numeros0a9.png")
+sabana_numeros = pygame.image.load("./Sprites/Gui/Numeros0a9.png")
 numeros = util.recorte_imagen(sabana_numeros,[14,19],10)
 
 #lista de enemigos para colisiones
 nombres_enemigos = ["misil_enemigo","asteroide","enemigo1","enemigo2"]
 
-def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos):
-    evaluar_victoria(ventana,enemigos,jugador)
+def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos,jugadores):
+    evaluar_victoria(ventana,enemigos,jugador,jugadores)
     condicion_derrota(niveles)
     ventana.fill(constantes.NEGRO)
     cargar_gui(ventana,jugador)
@@ -42,7 +45,7 @@ sprite_firework1 = util.recorte_explosion(firework1,[256,256],6,5)
 sprite_firework2 = util.recorte_explosion(firework1,[83,60],10,7)
 ####### QUEDA PENTIENDE HACER UN SPRITE EN VICTORIA PARA CONTINUAR O SALIR ######
 ##### RETRASAR UN POCO EL SPRITE PARA QUE SE ALCANCE A VER
-def evaluar_victoria(ventana,enemigos,jugador):
+def evaluar_victoria(ventana,enemigos,jugador,jugadores):
     global alarma_victoria
     if (not enemigos) and (not alarma_victoria):
         variables.reloj.tick(2) #JODER NUNCA ENTENDI COMO HACER MAS LENTO EL JUEGO EN UN DETERMINADO MOMENTO.
@@ -54,6 +57,7 @@ def evaluar_victoria(ventana,enemigos,jugador):
         sound_Fireworks1.play(-1)
         sound_Fireworks2.play(-1)
         ventana.blit(fondo,(0,0))
+        jugadores.remove(jugador)
         for repeticion in range(210):
             frame1 = util.animar(frame1,30)
             frame2 = util.animar(frame2,70)
@@ -149,6 +153,14 @@ def gestionar_generacion_modific(modificadores):
         modificadores.add(modif)
         alarma_generar_modif = False
 
+def gestionar_generacion_asteroide(asteroides):
+    global origen_asteroide
+    global alarma_generar_asteroide
+    if(alarma_generar_asteroide == True):
+        asteroide = Asteroide1(origen_asteroide)
+        asteroides.add(asteroide)
+        alarma_generar_asteroide = False
+
 def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
     for lista_colisiones in lista_elementos_colisionables:
         colisiones = pygame.sprite.spritecollide(jugador,lista_colisiones,True)
@@ -176,7 +188,8 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,juga
                             jugador.puntos += colision.puntos_destruir
 
                 balas_jugador.remove(bala)
-
+                
+#FIXME el jugador solo puede ganar 999 puntos poner los faltantes
 def dibujar_puntos_jugador(ventana,puntos):
     miles = puntos/1000
     centena = puntos/100

@@ -8,7 +8,7 @@ class Agujero_negro(Bloque_base):
     def __init__(self,pos,direccion):
         super().__init__(pos)
         self.frame = 0
-        sabana = pygame.image.load("./Sprites/SpriteAgujeroNegro.png")
+        sabana = pygame.image.load("./Sprites/bloques/SpriteAgujeroNegro.png")
         self.animacion = util.recorte_imagen(sabana,[153,153],8)
         self.image = self.animacion[self.frame]
         self.rect = self.image.get_rect()

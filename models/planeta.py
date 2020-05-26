@@ -10,7 +10,7 @@ class Planeta(Bloque_base):
         super().__init__(pos)
         self.frame = 0
         self.type = "planeta"
-        sabana = pygame.image.load("./Sprites/Planeta1.png")
+        sabana = pygame.image.load("./Sprites/bloques/Planeta1.png")
         self.animacion = util.recorte_explosion(sabana,[72,72],5,4)
         self.image = self.animacion[self.frame]
         self.rect = self.image.get_rect()
