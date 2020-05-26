@@ -204,7 +204,7 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,juga
 #FIXME el jugador solo puede ganar 999 puntos poner los faltantes
 def dibujar_puntos_jugador(ventana,puntos):
     miles = puntos/1000
-    centena = puntos/100
+    centena = (puntos - ((int(puntos/1000))*1000))/100
     decena = (puntos % 100)/10
     unidad = decena % 10
 
