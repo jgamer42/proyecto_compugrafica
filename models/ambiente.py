@@ -4,15 +4,19 @@ from models.misil_enemigo import Misil_enemigo
 from . import utilidades as util
 from . import variables
 from .asteroide1 import Asteroide1
+from .modificador_balas import Modificador_b
+from .modificador_nave import Modificador_n
 
 #alarmas
 alarma_disparo_enemigo = False
-alarma_generar_modif = False
+alarma_generar_modif_b = False
+alarma_generar_modif_n = False
 alarma_generar_asteroide = False
 alarma_gameover = False
 alarma_victoria = False
 alarma_planeta = False
-origen_modif = None
+origen_modif_b = None
+origen_modif_n = None
 origen_disparo_enemigo = None
 origen_asteroide = None
 
@@ -145,13 +149,21 @@ def gestionar_disparo_enemigo(balas_enemigos):
         balas_enemigos.add(misil)
         alarma_disparo_enemigo=False
 
-def gestionar_generacion_modific(modificadores):
-    global origen_modif
-    global alarma_generar_modif
-    if(alarma_generar_modif == True):
-        modif = Modificador(origen_modif)
-        modificadores.add(modif)
-        alarma_generar_modif = False
+def gestionar_generacion_modific_Balas(modificadores):
+    global origen_modif_b
+    global alarma_generar_modif_b
+    if(alarma_generar_modif_b == True):
+        modificador_b = Modificador_b(origen_modif_b)
+        modificadores.add(modificador_b)
+        alarma_generar_modif_b = False
+
+def gestionar_generacion_modific_naves(modificadores):
+    global origen_modif_n
+    global alarma_generar_modif_n
+    if(alarma_generar_modif_n == True):
+        modificador_n = Modificador_n(origen_modif_n)
+        modificadores.add(modificador_n)
+        alarma_generar_modif_n = False
 
 def gestionar_generacion_asteroide(asteroides):
     global origen_asteroide
@@ -188,7 +200,7 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,juga
                             jugador.puntos += colision.puntos_destruir
 
                 balas_jugador.remove(bala)
-                
+
 #FIXME el jugador solo puede ganar 999 puntos poner los faltantes
 def dibujar_puntos_jugador(ventana,puntos):
     miles = puntos/1000

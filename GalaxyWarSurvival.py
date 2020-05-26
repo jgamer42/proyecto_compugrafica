@@ -9,6 +9,8 @@ from models.enemigo2 import Enemigo2
 from models.asteroide1 import Asteroide1
 from models.generador_asteroides import Generador_asteroides
 from models.satelite import Satelite
+from models.modificador_balas import Modificador_b
+from models.modificador_nave import Modificador_n
 from models.agujero_negro import Agujero_negro
 from models.planeta import Planeta
 from models.variables import *
@@ -32,6 +34,7 @@ if __name__ == "__main__":
     jugador = Jugador([340,620])
     satelite = Satelite([100,100])
     generador_asteroides = Generador_asteroides([50,50])
+
 
     elementos_ambientales.add(agujero)
     elementos_ambientales.add(planeta)
@@ -66,11 +69,13 @@ if __name__ == "__main__":
             ambiente.gestionar_elementos_ambientales(jugador,elementos_ambientales)
             ambiente.gestionar_disparo_enemigo(balas_enemigos)
             ambiente.gestionar_generacion_asteroide(asteroides)
-            elementos_colisionables = [balas_enemigos,enemigos,asteroides]
+            ambiente.gestionar_generacion_modific_Balas(modificadores)
+            ambiente.gestionar_generacion_modific_naves(modificadores)
+            elementos_colisionables = [balas_enemigos,enemigos,asteroides,modificadores]
             ambiente.gestionar_colision_jugador(jugador,elementos_colisionables)
             ambiente.gestionar_colision_enemigo(balas_jugador,elementos_colisionables,jugador,ventana)
-            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales,asteroides]
-            elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites,asteroides]
+            elementos_dibujar = [balas_enemigos,balas_jugador,jugadores,enemigos,satelites,elementos_ambientales,asteroides,modificadores]
+            elementos_borrar = [balas_enemigos,balas_jugador,elementos_ambientales,satelites,asteroides,modificadores]
             ambiente.protector_memoria(elementos_borrar)
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador,niveles,enemigos,jugadores)
         music_juego.stop()

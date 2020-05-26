@@ -53,6 +53,14 @@ def generar_asteroides(asteroides):
     asteroide = Asteroide1([50,-100])
     asteroides.add(asteroide)
 
+def generar_modificador_balas(modif):
+    modificadores = Modificador_b([50,-100])
+    modificadores.add(modificadores)
+
+def generar_modificador_naves(modif):
+    modificadores = Modificador_n([50,-100])
+    modificadores.add(modificadores)
+
 def explosion_enemigos(ventana,pos):
     global animacion_muerte_enemigos
     frame = 0
