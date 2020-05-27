@@ -15,15 +15,6 @@ from models.agujero_negro import Agujero_negro
 from models.planeta import Planeta
 from models.variables import *
 
-#cambios
-# 1. creado el generador de asteroides
-# 2. organizado la paqueteria de los sprites
-# 3. añadida funcionalidad del generador de asteroides
-# 4. reparada colision asteroides
-# 5. se bajaron los puntos por impactar el asteroide para prevenir bugs
-# BUGS
-# 1. El jugador solo puede ganar 999 puntos (prueba ponerl 1000 al jugado desde el inicio)
-# el error esta en ambiente , en la funcion dibujar puntos
 if __name__ == "__main__":
     pygame.init()
     pygame.mixer.init()

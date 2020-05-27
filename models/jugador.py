@@ -3,6 +3,7 @@ from . import utilidades as util
 from . import ambiente
 from . import constantes
 from .misil import Misil
+from .misil2 import Misil2
 
 class Jugador(pygame.sprite.Sprite):
     def __init__(self,pos):
@@ -104,6 +105,10 @@ class Jugador(pygame.sprite.Sprite):
                 origen_disparo = [self.rect.left,self.rect.y]
                 self.disparar(lista_balas,origen_disparo)
                 self.reproducir_sonido('./Sounds/shoot.wav')
+            if(evento.key == pygame.K_s and not ambiente.alarma_planeta):
+                origen_disparo_2 = [self.rect.x+35,self.rect.y]
+                self.disparar_2(lista_balas,origen_disparo_2)
+                self.reproducir_sonido('./Sounds/shoot.wav')
         if evento.type == pygame.KEYUP:
             if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                 self.frenar()
@@ -117,6 +122,10 @@ class Jugador(pygame.sprite.Sprite):
     def disparar(self,lista_balas,origen_disparo):
         bala = Misil(origen_disparo)
         lista_balas.add(bala)
+
+    def disparar_2(self,lista_balas,origen_disparo_2):
+        bala2 = Misil2(origen_disparo_2)
+        lista_balas.add(bala2)
 
     def cambio_animacion(self):
         pos_x = self.rect.x
