@@ -18,7 +18,7 @@ class Generador_asteroides(Bloque_base):
     def generar(self):
         generador = None
         if not(self.generando):
-            generador = random.randint(0,10)
+            generador = random.randint(0,50)
         if(generador == 0):
             ambiente.alarma_generar_asteroide = True
             pos_asteroide_generado = random.randint(20,constantes.ANCHO-20)

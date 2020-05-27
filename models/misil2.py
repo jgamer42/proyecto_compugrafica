@@ -17,7 +17,7 @@ class Misil2(Bala_base):
         self.rect.x = pos_x
         self.rect.y = pos_y
         self.type = "misil2"
-        self.daño = 200
+        self.daño = 253
 
     def update(self):
         super().update()

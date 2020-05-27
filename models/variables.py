@@ -9,6 +9,7 @@ balas_jugador = pygame.sprite.Group()
 satelites = pygame.sprite.Group()
 modificadores = pygame.sprite.Group()
 asteroides = pygame.sprite.Group()
+tipo_misil = "misil"
 
 #sonido
 pygame.mixer.init()

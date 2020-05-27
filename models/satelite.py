@@ -11,13 +11,20 @@ class Satelite(Bloque_base):
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
-        self.generando = False
+        self.generando = 0
         self.type = "satelite"
 
+    def cant_mod(self):
+        cantidad = [30,90,120]
+        if self.generando in cantidad:
+            self.generando += 1
+            return 0
+        else:
+            self.generando += 1
+            return self.generando
+
     def generar(self):
-        generador = None
-        if not(self.generando):
-            generador = random.randint(0,10)
+        generador = self.cant_mod()
         if(generador == 0):
             ambiente.alarma_generar_modif_b = True
             ambiente.alarma_generar_modif_n = True

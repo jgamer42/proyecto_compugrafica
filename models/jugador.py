@@ -4,6 +4,7 @@ from . import ambiente
 from . import constantes
 from .misil import Misil
 from .misil2 import Misil2
+from . import variables
 
 class Jugador(pygame.sprite.Sprite):
     def __init__(self,pos):
@@ -67,7 +68,6 @@ class Jugador(pygame.sprite.Sprite):
     def controles(self,evento,lista_balas):
         if(evento.type == pygame.KEYDOWN):
             if(evento.key == pygame.K_s):
-                #self.cambio_animacion()
                 self.speed = True
             if(evento.key == pygame.K_RIGHT):
                 if self.speed:
@@ -99,15 +99,11 @@ class Jugador(pygame.sprite.Sprite):
                     self.velx = 0
             if(evento.key == pygame.K_d and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.right-20,self.rect.y]
-                self.disparar(lista_balas,origen_disparo)
+                self.disparar(lista_balas,origen_disparo,variables.tipo_misil)
                 self.reproducir_sonido('./Sounds/shoot.wav')
             if(evento.key == pygame.K_a and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.left,self.rect.y]
-                self.disparar(lista_balas,origen_disparo)
-                self.reproducir_sonido('./Sounds/shoot.wav')
-            if(evento.key == pygame.K_s and not ambiente.alarma_planeta):
-                origen_disparo_2 = [self.rect.x+35,self.rect.y]
-                self.disparar_2(lista_balas,origen_disparo_2)
+                self.disparar(lista_balas,origen_disparo,variables.tipo_misil)
                 self.reproducir_sonido('./Sounds/shoot.wav')
         if evento.type == pygame.KEYUP:
             if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
@@ -119,8 +115,11 @@ class Jugador(pygame.sprite.Sprite):
         self.velx=0
         self.vely=0
 
-    def disparar(self,lista_balas,origen_disparo):
-        bala = Misil(origen_disparo)
+    def disparar(self,lista_balas,origen_disparo,tipo_misil):
+        if tipo_misil == "misil":
+            bala = Misil(origen_disparo)
+        else:
+            bala = Misil2(origen_disparo)
         lista_balas.add(bala)
 
     def disparar_2(self,lista_balas,origen_disparo_2):

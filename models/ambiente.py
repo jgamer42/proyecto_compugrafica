@@ -128,6 +128,7 @@ def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
                     niveles[2] = False
                 elif(estado[0] == 1):
                     alarma_gameover = False
+                    jugador.vidas = 3
                     niveles[0] = True
                     niveles[1] = True
                     niveles[2] = False
@@ -179,13 +180,16 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
         for colision in colisiones:
             if (colision.type in nombres_enemigos):
                 jugador.salud -= colision.daño
+            elif colision.type == "modificador_bala":
+                variables.tipo_misil = "misil2"
+            elif colision.type == "modificador_nave":
+                jugador.estado = 1
 
 def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,jugador,ventana):
     for bala in balas_jugador:
         for lista_colisiones in lista_elementos_colisionables:
             colisiones = pygame.sprite.spritecollide(bala,lista_colisiones,False)
             for colision in colisiones:
-
                 if colision.type in nombres_enemigos:
                     if colision.type == "misil_enemigo":
                         util.explosion_enemigos(ventana,colision.posActual)
@@ -198,10 +202,8 @@ def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,juga
                             util.explosion_enemigos(ventana,colision.posActual)
                             lista_colisiones.remove(colision)
                             jugador.puntos += colision.puntos_destruir
-
                 balas_jugador.remove(bala)
 
-#FIXME el jugador solo puede ganar 999 puntos poner los faltantes
 def dibujar_puntos_jugador(ventana,puntos):
     miles = puntos/1000
     centena = (puntos - ((int(puntos/1000))*1000))/100

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     ventana = pygame.display.set_mode([constantes.ANCHO,constantes.ALTO])
 
     agujero = Agujero_negro([0,-100],constantes.DERECHA)
-    planeta = Planeta([50,-200])
+    planeta = Planeta([400,-1200])
     jugador = Jugador([340,620])
     satelite = Satelite([100,100])
     generador_asteroides = Generador_asteroides([50,50])
