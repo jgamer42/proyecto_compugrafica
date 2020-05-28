@@ -36,15 +36,15 @@ def animar(frame_actual,numero_frames):
         return(frame_actual)
 
 def generar_enemigos(enemigos):
-    for i in range(1):
+    for i in range(10):
         posx = random.randint(10,200)
-        posy = random.randint(10,200)
+        posy = random.randint(0,200)
         direccion = random.choice([-1,1])
-        enemigo = Enemigo2([posx,posy],direccion,60)
+        enemigo = Enemigo2([posx,posy],direccion,posy)
         enemigos.add(enemigo)
-    for i in range(1):
+    for i in range(5):
         posx = random.randint(10,200)
-        posy = random.randint(10,200)
+        posy = random.randint(0,200)
         direccion = random.choice([-1,1])
         enemigo = Enemigo1([posx,posy],direccion,50)
         enemigos.add(enemigo)
