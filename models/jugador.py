@@ -122,9 +122,11 @@ class Jugador(pygame.sprite.Sprite):
             bala = Misil2(origen_disparo)
         lista_balas.add(bala)
 
+    '''
     def disparar_2(self,lista_balas,origen_disparo_2):
         bala2 = Misil2(origen_disparo_2)
         lista_balas.add(bala2)
+    '''
 
     def cambio_animacion(self):
         pos_x = self.rect.x
@@ -148,7 +150,7 @@ class Jugador(pygame.sprite.Sprite):
 
     def reiniciar(self):
         self.salud = 1000
-        self.estado = 0
+        self.estado = variables.estado_nave
         self.repeticiones = 0
         self.rect.x = self.pos_inicial[0]
         self.rect.y = self.pos_inicial[1]

@@ -71,14 +71,29 @@ if __name__ == "__main__":
             ambiente.ciclo_de_juego(ventana,elementos_dibujar,jugador,niveles,enemigos,jugadores)
         music_juego.stop()
 
-        #fin de juego
-        music_out.set_volume(0.4)
-        music_out.play(-1)
-        while (niveles[2] and en_juego[0]):
-            for evento in pygame.event.get():
-                ambiente.controles(evento,2,en_juego,niveles,jugador,estado)
-            ventana.fill(constantes.NEGRO)
-            cargar = GameOver[estado[0]]
-            ventana.blit(cargar, [0,0])
-            pygame.display.flip()
-        music_out.stop()
+        if ambiente.alarma_victoria:
+            ambiente.protector_memoria([satelites,elementos_ambientales,modificadores])
+            sound_Fireworks1.play(-1)
+            sound_Fireworks2.play(-1)
+            while (niveles[2] and en_juego[0]):
+                for evento in pygame.event.get():
+                    ambiente.controles(evento,2,en_juego,niveles,jugador,estado)
+                ventana.fill(constantes.NEGRO)
+                cargar = Victoria[estado[0]]
+                ventana.blit(cargar, [0,0])
+                ambiente.animar_victoria(ventana)
+                pygame.display.flip()
+            sound_Fireworks1.stop()
+            sound_Fireworks2.stop()
+        else:
+            #fin de juego
+            music_out.set_volume(0.4)
+            music_out.play(-1)
+            while (niveles[2] and en_juego[0]):
+                for evento in pygame.event.get():
+                    ambiente.controles(evento,2,en_juego,niveles,jugador,estado)
+                ventana.fill(constantes.NEGRO)
+                cargar = GameOver[estado[0]]
+                ventana.blit(cargar, [0,0])
+                pygame.display.flip()
+            music_out.stop()

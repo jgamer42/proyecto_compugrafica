@@ -28,7 +28,7 @@ numeros = util.recorte_imagen(sabana_numeros,[14,19],10)
 nombres_enemigos = ["misil_enemigo","asteroide","enemigo1","enemigo2"]
 
 def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos,jugadores):
-    evaluar_victoria(ventana,enemigos,jugador,jugadores)
+    evaluar_victoria(ventana,enemigos,jugador,jugadores,niveles)
     condicion_derrota(niveles)
     ventana.fill(constantes.NEGRO)
     cargar_gui(ventana,jugador)
@@ -39,38 +39,34 @@ def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos,jugadores):
     variables.reloj.tick(constantes.NUMERO_FPS)
 
 # elementos de la victoria
-sound_Fireworks1 = pygame.mixer.Sound("./Sounds/Fireworks1.wav")
-sound_Fireworks2 = pygame.mixer.Sound("./Sounds/Fireworks2.ogg")
-
-fondo = pygame.image.load("./Sprites/Victoria.png")
 firework1 = pygame.image.load("./Sprites/Firework.png")
 firework2 = pygame.image.load("./Sprites/Firework2.png")
 sprite_firework1 = util.recorte_explosion(firework1,[256,256],6,5)
-sprite_firework2 = util.recorte_explosion(firework1,[83,60],10,7)
-####### QUEDA PENTIENDE HACER UN SPRITE EN VICTORIA PARA CONTINUAR O SALIR ######
-##### RETRASAR UN POCO EL SPRITE PARA QUE SE ALCANCE A VER
-def evaluar_victoria(ventana,enemigos,jugador,jugadores):
+sprite_firework2 = util.recorte_explosion(firework2,[83,60],10,7)
+
+def evaluar_victoria(ventana,enemigos,jugador,jugadores,niveles):
     global alarma_victoria
     if (not enemigos) and (not alarma_victoria):
-        variables.reloj.tick(2) #JODER NUNCA ENTENDI COMO HACER MAS LENTO EL JUEGO EN UN DETERMINADO MOMENTO.
         variables.music_juego.stop()
         jugador.frenar()
-        frame1 = 0
-        frame2 = 0
-        constantes.VELOCIDAD_ENTORNO = 0
-        sound_Fireworks1.play(-1)
-        sound_Fireworks2.play(-1)
-        ventana.blit(fondo,(0,0))
         jugadores.remove(jugador)
-        for repeticion in range(210):
-            frame1 = util.animar(frame1,30)
-            frame2 = util.animar(frame2,70)
-            ventana.blit(sprite_firework1[frame1],(200,150))
-            ventana.blit(sprite_firework2[frame2],(350,165))
-            pygame.display.flip()
-        sound_Fireworks1.stop()
-        sound_Fireworks2.stop()
+        niveles[0] = False
+        niveles[1] = False
+        niveles[2] = True
+        constantes.VELOCIDAD_ENTORNO = 0
         alarma_victoria = True
+
+def animar_victoria(ventana):
+    frame1 = 0
+    frame2 = 0
+    for repeat in range(30):
+        frame1 = util.animar(frame1,30)
+        ventana.blit(sprite_firework1[frame1],(12,230))
+        pygame.display.flip()
+    for repeticion in range(70):
+        frame2 = util.animar(frame2,70)
+        ventana.blit(sprite_firework2[frame2],(170,280))
+        pygame.display.flip()
 
 def condicion_derrota(niveles):
     if(alarma_gameover):
@@ -184,6 +180,7 @@ def gestionar_colision_jugador(jugador,lista_elementos_colisionables):
                 variables.tipo_misil = "misil2"
             elif colision.type == "modificador_nave":
                 jugador.estado = 1
+                variables.estado_nave = 1
 
 def gestionar_colision_enemigo(balas_jugador, lista_elementos_colisionables,jugador,ventana):
     for bala in balas_jugador:
