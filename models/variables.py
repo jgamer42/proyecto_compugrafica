@@ -12,12 +12,14 @@ asteroides = pygame.sprite.Group()
 tipo_misil = "misil"
 estado_nave = 0
 
-
 #sonido
 pygame.mixer.init()
 music_intro = pygame.mixer.Sound('./Sounds/Brave Pilots (Menu Screen).ogg')
 music_juego = pygame.mixer.Sound('./Sounds/Juego.ogg')
 music_out = pygame.mixer.Sound("./Sounds/Game Over.ogg")
+
+disparo = pygame.mixer.Sound('./Sounds/shoot.wav')
+explosion_jugador = pygame.mixer.Sound('./Sounds/boom.wav')
 
 sound_Fireworks1 = pygame.mixer.Sound("./Sounds/Fireworks1.wav")
 sound_Fireworks2 = pygame.mixer.Sound("./Sounds/Fireworks2.ogg")

@@ -29,7 +29,7 @@ nombres_enemigos = ["misil_enemigo","asteroide","enemigo1","enemigo2"]
 
 def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos,jugadores):
     evaluar_victoria(ventana,enemigos,jugador,jugadores,niveles)
-    condicion_derrota(niveles)
+    condicion_derrota(niveles,jugador)
     ventana.fill(constantes.NEGRO)
     cargar_gui(ventana,jugador)
     for elemento in elementos:
@@ -68,8 +68,9 @@ def animar_victoria(ventana):
         ventana.blit(sprite_firework2[frame2],(170,280))
         pygame.display.flip()
 
-def condicion_derrota(niveles):
+def condicion_derrota(niveles,jugador):
     if(alarma_gameover):
+        jugador.puntos = 0
         niveles[0] = False
         niveles[1] = False
         niveles[2] = True

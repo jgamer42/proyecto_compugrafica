@@ -46,7 +46,7 @@ class Jugador(pygame.sprite.Sprite):
 
     def evaluar_vida(self):
         if self.salud <= 0:
-            self.reproducir_sonido('./Sounds/boom.wav')
+            self.reproducir_sonido("boom")
             self.frenar()
             self.estado = 3
 
@@ -100,11 +100,11 @@ class Jugador(pygame.sprite.Sprite):
             if(evento.key == pygame.K_d and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.right-20,self.rect.y]
                 self.disparar(lista_balas,origen_disparo,variables.tipo_misil)
-                self.reproducir_sonido('./Sounds/shoot.wav')
+                self.reproducir_sonido("bala")
             if(evento.key == pygame.K_a and not ambiente.alarma_planeta):
                 origen_disparo = [self.rect.left,self.rect.y]
                 self.disparar(lista_balas,origen_disparo,variables.tipo_misil)
-                self.reproducir_sonido('./Sounds/shoot.wav')
+                self.reproducir_sonido("bala")
         if evento.type == pygame.KEYUP:
             if(evento.key == pygame.K_UP) or (evento.key == pygame.K_DOWN) or (evento.key == pygame.K_RIGHT) or (evento.key == pygame.K_LEFT):
                 self.frenar()
@@ -122,12 +122,6 @@ class Jugador(pygame.sprite.Sprite):
             bala = Misil2(origen_disparo)
         lista_balas.add(bala)
 
-    '''
-    def disparar_2(self,lista_balas,origen_disparo_2):
-        bala2 = Misil2(origen_disparo_2)
-        lista_balas.add(bala2)
-    '''
-
     def cambio_animacion(self):
         pos_x = self.rect.x
         pos_y = self.rect.y
@@ -136,9 +130,12 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.x = pos_x
         self.rect.y = pos_y
 
-    def reproducir_sonido(self,direccion):
-        disparo = pygame.mixer.Sound(direccion)
-        disparo.play()
+    def reproducir_sonido(self,tipo):
+        if tipo == "bala":
+            variables.disparo.play()
+        elif tipo == "boom":
+            variables.explosion_jugador.play()
+
 
     def animacion_muerte(self):
         if(self.estado == 3):
