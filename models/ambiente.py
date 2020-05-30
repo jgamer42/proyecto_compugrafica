@@ -26,6 +26,7 @@ numeros = util.recorte_imagen(sabana_numeros,[14,19],10)
 
 #lista de enemigos para colisiones
 nombres_enemigos = ["misil_enemigo","asteroide","enemigo1","enemigo2"]
+elementos_borrar = ["asteroide","agujero","planeta","satelite"]
 
 def ciclo_de_juego(ventana,elementos,jugador,niveles,enemigos,jugadores):
     evaluar_victoria(ventana,enemigos,jugador,jugadores,niveles)
@@ -49,11 +50,9 @@ def evaluar_victoria(ventana,enemigos,jugador,jugadores,niveles):
     if (not enemigos) and (not alarma_victoria):
         variables.music_juego.stop()
         jugador.frenar()
-        jugadores.remove(jugador)
         niveles[0] = False
         niveles[1] = False
         niveles[2] = True
-        constantes.VELOCIDAD_ENTORNO = 0
         alarma_victoria = True
 
 def animar_victoria(ventana):
@@ -70,6 +69,8 @@ def animar_victoria(ventana):
 
 def condicion_derrota(niveles,jugador):
     if(alarma_gameover):
+        jugador.tipo_misil = "misil"
+        jugador.estado = 0
         jugador.puntos = 0
         niveles[0] = False
         niveles[1] = False
@@ -105,9 +106,8 @@ def seleccionar_pos_fondo():
 def protector_memoria(elementos):
     for elemento in elementos:
         for e in elemento:
-            if(e.type == "asteroide" or e.type == "agujero" or e.type == "planeta" or e.type == "satelite"):
+            if e.type in elementos_borrar:
                 if(e.rect.y > constantes.ALTO):
-                    print(e.type)
                     elemento.remove(e)
             else:
                 if(e.rect.bottom <= 0) or (e.rect.top > constantes.ALTO):
@@ -118,6 +118,9 @@ def protector_memoria(elementos):
 def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
     global alarma_gameover
     if(evento.type == pygame.KEYDOWN):
+        if nivel == 0:
+            if (evento.key == pygame.K_SPACE):
+                niveles[nivel]=False
         if (nivel==2):
             if (evento.key == pygame.K_SPACE):
                 if(estado[0] == 0):
@@ -133,9 +136,6 @@ def controles(evento,nivel,en_juego,niveles,jugador=None,estado=None):
                 estado[0] = 1
             if (evento.key == pygame.K_LEFT):
                 estado[0] = 0
-        else:
-            if (evento.key == pygame.K_SPACE):
-                niveles[nivel]=False
     if evento.type == pygame.QUIT:
         en_juego[0] = False
 

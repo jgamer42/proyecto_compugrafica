@@ -26,14 +26,6 @@ if __name__ == "__main__":
     satelite = Satelite([100,100])
     generador_asteroides = Generador_asteroides([50,50])
 
-
-    elementos_ambientales.add(agujero)
-    elementos_ambientales.add(planeta)
-    jugadores.add(jugador)
-    satelites.add(generador_asteroides)
-    satelites.add(satelite)
-    utilidades.generar_enemigos(enemigos)
-
     niveles = [True,True,True]
     en_juego = [True]
     estado = [0]
@@ -51,6 +43,14 @@ if __name__ == "__main__":
         music_intro.stop()
 
         #Nivel 1CD
+        ambiente.alarma_victoria = False
+        elementos_ambientales.add(agujero)
+        elementos_ambientales.add(planeta)
+        jugadores.add(jugador)
+        satelites.add(generador_asteroides)
+        satelites.add(satelite)
+        utilidades.generar_enemigos(enemigos)
+
         music_juego.set_volume(0.5)
         music_juego.play(-1)
         while (niveles[1] and en_juego[0]):
